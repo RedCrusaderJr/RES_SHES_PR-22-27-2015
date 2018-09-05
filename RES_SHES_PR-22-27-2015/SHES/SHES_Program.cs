@@ -1,6 +1,8 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -14,6 +16,8 @@ namespace SHES
         static void Main(string[] args)
         {
             Console.WriteLine("SHES: Hello world!");
+
+            AppStarter();
 
             IUniversalTimer proxy = Connect();
 
@@ -31,6 +35,20 @@ namespace SHES
             NetTcpBinding binding = new NetTcpBinding();
 
             return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
+        }
+
+        static void AppStarter()
+        {
+            String absolutePath = Path.GetFullPath(@"..\..\..\");
+
+            //UniversalTimer
+            Process.Start($@"{absolutePath}UniversalTimer\bin\Debug\UniversalTimer");
+
+            //WeatherSimulator
+            Process.Start($@"{absolutePath}WeatherSimulator\bin\Debug\WeatherSimulator");
+
+            //Utility
+            Process.Start($@"{absolutePath}Utility\bin\Debug\Utility");
         }
     }
 }
