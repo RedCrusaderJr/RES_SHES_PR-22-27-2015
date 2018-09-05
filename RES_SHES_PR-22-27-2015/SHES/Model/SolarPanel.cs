@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SHES.Model
 {
-    class SolarPanel
+    public class SolarPanel
     {
         public string SolarPanelID { get; set; }
         public double MaxPower { get; set; }

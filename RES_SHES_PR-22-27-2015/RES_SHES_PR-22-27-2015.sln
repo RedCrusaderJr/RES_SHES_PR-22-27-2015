@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{051A57E4-EFBC-4401-AAD6-6147395C5257}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalTimer", "UniversalTimer\UniversalTimer.csproj", "{1EB482EC-66AA-4A99-AE86-94329E2327FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{051A57E4-EFBC-4401-AAD6-6147395C5257}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051A57E4-EFBC-4401-AAD6-6147395C5257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{051A57E4-EFBC-4401-AAD6-6147395C5257}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

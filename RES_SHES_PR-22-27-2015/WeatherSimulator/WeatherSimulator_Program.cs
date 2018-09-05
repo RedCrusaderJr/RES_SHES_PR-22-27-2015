@@ -2,25 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace WeatherSimulator
 {
-    class Program
+    public class WeatherSimulator_Program
     {
         static void Main(string[] args)
         {
-            UniversalTime globalTime = UniversalTime.S_UniversalTime;
+            IUniversalTimer proxy = Connect();
             int sunlightPercentage = 0;
             Random random = new Random();
 
             while (true)
             {
-                double hourOfTheDay = globalTime.GetTimeInHours();
+                
+                double hourOfTheDay = proxy.GetGlobalTimeInHours();
 
-                if(hourOfTheDay >= 1 && hourOfTheDay < 5.5)
+                if(hourOfTheDay >= 0 && hourOfTheDay < 5.5)
                 {
                     sunlightPercentage = 0;
                 }
@@ -52,14 +54,22 @@ namespace WeatherSimulator
                 {
                     sunlightPercentage = 25 * random.Next(8, 10) / 10;
                 }
-                else if (hourOfTheDay >= 22.0 && hourOfTheDay < 24.0)
+                else if (hourOfTheDay >= 22.0 && hourOfTheDay <= 23.0)
                 {
                     sunlightPercentage = 0;
                 }
 
                 Console.WriteLine($"Sunlight(%): {sunlightPercentage}   time[{hourOfTheDay}]");
-                Thread.Sleep(2000);
-            }
+                Thread.Sleep(500);
+                  
+           }
+        }
+
+        static IUniversalTimer Connect()
+        {
+            NetTcpBinding binding = new NetTcpBinding();
+
+            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
         }
     }
 }

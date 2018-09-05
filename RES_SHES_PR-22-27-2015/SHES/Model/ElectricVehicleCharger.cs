@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SHES.Model
 {
-    class ElectricVehicleCharger : Battery
+    public class ElectricVehicleCharger : Battery
     {
 
     }

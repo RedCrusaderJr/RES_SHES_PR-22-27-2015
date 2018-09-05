@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SHES.Model
 {
-    class Battery
+    public class Battery
     {
         public string BatteryID { get; set; }
         public double MaxPower { get; set; }

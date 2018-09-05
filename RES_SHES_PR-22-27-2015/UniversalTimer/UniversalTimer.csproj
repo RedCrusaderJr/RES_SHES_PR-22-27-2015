@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D1E190B0-DF0B-4723-8F62-4B567AB87F49}</ProjectGuid>
+    <ProjectGuid>{1EB482EC-66AA-4A99-AE86-94329E2327FF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>WeatherSimulator</RootNamespace>
-    <AssemblyName>WeatherSimulator</AssemblyName>
+    <RootNamespace>UniversalTimer</RootNamespace>
+    <AssemblyName>UniversalTimer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WeatherSimulator_Program.cs" />
+    <Compile Include="UniversalTimer_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UniversalTimer_Provider.cs" />
+    <Compile Include="UniversalTimer_Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
