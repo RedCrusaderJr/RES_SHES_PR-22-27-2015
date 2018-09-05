@@ -56,8 +56,8 @@ namespace WeatherSimulator
                 {
                     sunlightPercentage = 0;
                 }
-            
-                Console.WriteLine("Sunlight(%): " + sunlightPercentage);
+
+                Console.WriteLine($"Sunlight(%): {sunlightPercentage}   time[{hourOfTheDay}]");
                 Thread.Sleep(2000);
             }
         }

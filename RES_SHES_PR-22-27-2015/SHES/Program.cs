@@ -20,9 +20,8 @@ namespace SHES
 
             while(true)
             {
-                Console.WriteLine("Time: " + globalTime.Time + " seconds");
-                //Console.WriteLine("Time: " + globalTime.GetTimeInMinutes() + " minutes");
-                //Console.WriteLine("Time: " + globalTime.GetTimeInHours() + " hours");
+                Console.WriteLine($"Global Time: Hours format[{globalTime.GetTimeInHours()}]     Minutes format[{globalTime.GetTimeInMinutes()}]     Seconds format[{globalTime.Time}]");
+                Thread.Sleep(2000);
             }
         }
     }

@@ -60,7 +60,7 @@ namespace Common
 
         public double GetTimeInHours()
         {
-            return (Time / (60 * 60)) + 1;
+            return Math.Round((Time / (double)(60 * 60)) + 1, 2);
         }
 
         private UniversalTime()

@@ -15,7 +15,7 @@ namespace SHES
 
         public static double MinutesToHours(double minutes)
         {
-            return minutes / 60;
+            return minutes / (double)60;
         }
     }
 }
