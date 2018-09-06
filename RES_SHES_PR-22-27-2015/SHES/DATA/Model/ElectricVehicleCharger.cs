@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SHES.Model
+namespace SHES.Data.Model
 {
     public class ElectricVehicleCharger : Battery
     {
