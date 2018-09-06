@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SHES.Data.Model
 {
+    public enum BatteryMode { CHARGING, NOT_CHARGING, NONE };
+
     public class Battery
     {
         [Key]
@@ -15,5 +17,6 @@ namespace SHES.Data.Model
         public string BatteryID { get; set; }
         public double MaxPower { get; set; }
         public double Capacity { get; set; }
+        public BatteryMode Mode { get; set; }
     }
 }
