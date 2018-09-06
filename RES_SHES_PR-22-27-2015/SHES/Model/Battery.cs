@@ -8,6 +8,7 @@ namespace SHES.Model
 {
     public class Battery
     {
+        [Key]
         public string BatteryID { get; set; }
         public double MaxPower { get; set; }
         public double Capacity { get; set; }
