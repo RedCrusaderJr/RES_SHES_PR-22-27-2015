@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,5 +16,6 @@ namespace SHES.Data.Model
         public string ConsumerID { get; set; }
         public double Consumption { get; set; }
         public bool Activity { get; set; }
+        public EMode Mode { get; set; }
     }
 }

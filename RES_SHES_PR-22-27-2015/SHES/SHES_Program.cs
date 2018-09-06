@@ -29,11 +29,16 @@ namespace SHES
 
             DBManager dBManager = DBManager.S_Instance;
 
-            if(dBManager.AddBattery(new Battery() { BatteryID = "123", Capacity = 5, MaxPower = 55 }))
+            if(dBManager.AddBattery(new Battery() { BatteryID = "123", MaxCapacity = 5, MaxPower = 55, CurrentCapacity=0, Mode=EMode.NONE}))
             {
                 Console.WriteLine("Battery added successfully!");
             }
-                        
+
+            if (dBManager.AddConsumer(new Consumer() { ConsumerID = "123", Activity = false, Mode = EMode.NONE, Consumption = 12 }))
+            {
+                Console.WriteLine("Consumer added successfully!");
+            }
+
             Menu myMenu = new Menu();
             myMenu.Display();
         }
@@ -41,10 +46,8 @@ namespace SHES
         static IUniversalTimer Connect()
         {
             NetTcpBinding binding = new NetTcpBinding();
-            Thread.Sleep(5000);
-            ChannelFactory<IUniversalTimer> factory = new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer"));
 
-            return factory.CreateChannel();
+            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
         }
 
         static void AppStarter()

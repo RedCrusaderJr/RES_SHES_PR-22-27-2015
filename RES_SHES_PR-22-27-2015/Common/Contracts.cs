@@ -17,4 +17,11 @@ namespace Common
         [OperationContract]
         Double GetGlobalTimeInHours();
     }
+
+    [ServiceContract]
+    public interface IWeatherForecast
+    {
+        [OperationContract]
+        Int32 GetSunlightPercentage();
+    }
 }

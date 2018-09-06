@@ -22,7 +22,10 @@ namespace SHES
                 Console.WriteLine("1. Add some element");
                 Console.WriteLine("2. Remove some element");
                 Console.WriteLine("3. Change consumer's activity");
-                Console.WriteLine("4. EXIT");
+                Console.WriteLine("4. Change EVC's charging");
+                Console.WriteLine("5. Show report (graphic)");
+                Console.WriteLine("6. Show financial state");
+                Console.WriteLine("7. EXIT");
 
                 Console.WriteLine();
                 Console.WriteLine("Your answer: ");
@@ -31,9 +34,9 @@ namespace SHES
                 Console.WriteLine();
                 Console.WriteLine("-------------------------------------------");
                 Console.WriteLine();
-                
 
-                switch(answer1)
+
+                switch (answer1)
                 {
                     case 1:
                         {
@@ -53,6 +56,21 @@ namespace SHES
                             break;
                         }
                     case 4:
+                        {
+                            ChangeEVCCharging();
+                            break;
+                        }
+                    case 5:
+                        {
+                            ShowReport();
+                            break;
+                        }
+                    case 6:
+                        {
+                            ShowFinancialState();
+                            break;
+                        }
+                    case 7:
                         {
                             Console.WriteLine("Goodbye !");
                             break;
@@ -150,7 +168,7 @@ namespace SHES
             b.MaxPower = Double.Parse(Console.ReadLine());
 
             Console.WriteLine("Batery Capacity: ");
-            b.Capacity = Double.Parse(Console.ReadLine());
+            b.MaxCapacity = Double.Parse(Console.ReadLine());
 
 
             // dodaj b u bazu
@@ -168,7 +186,7 @@ namespace SHES
             evc.MaxPower = Double.Parse(Console.ReadLine());
 
             Console.WriteLine("EVC-Batery Capacity: ");
-            evc.Capacity = Double.Parse(Console.ReadLine());
+            evc.MaxCapacity = Double.Parse(Console.ReadLine());
 
             evc.Activity = false;
 
@@ -252,6 +270,8 @@ namespace SHES
 
         public void RemoveSolarPanel()
         {
+            // ispis svih ?
+
             Console.WriteLine("Solar panel ID: ");
 
             // proveri postojanje
@@ -261,6 +281,8 @@ namespace SHES
 
         public void RemoveBattery()
         {
+            // ispis svih ?
+
             Console.WriteLine("Battery ID: ");
 
             // proveri postojanje
@@ -270,6 +292,8 @@ namespace SHES
 
         public void RemoveEVC()
         {
+            // ispis svih ?
+
             Console.WriteLine("EVC-Battery ID: ");
 
             // proveri postojanje
@@ -279,6 +303,8 @@ namespace SHES
 
         public void RemoveConsumer()
         {
+            // ispis svih ?
+
             Console.WriteLine("Consumer ID: ");
 
             // proveri postojanje
@@ -296,6 +322,27 @@ namespace SHES
             // prihvati ID onog cija se aktivnost menja
             // izmeni njegovu aktivnost
 
+        }
+
+        public void ChangeEVCCharging()
+        {
+            // izlistaj sve EVC - ove
+            // prihati ID, komandu za punjac i aktivnost
+        }
+
+        public void ShowReport()
+        {
+            // iscrtaj grafik sa 4 krive
+            //
+            //      proizvodnja panela
+            //      energija iz baterija (+ / -)
+            //      uvoz iz utility-a (+ / -)
+            //      ukupna potrosnja
+        }
+
+        public void ShowFinancialState()
+        {
+            // prikazi trenutnu vrednost promenljive KASA (?)
         }
     }
 }
