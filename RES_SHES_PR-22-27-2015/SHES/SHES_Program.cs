@@ -35,8 +35,10 @@ namespace SHES
         static IUniversalTimer Connect()
         {
             NetTcpBinding binding = new NetTcpBinding();
+            ChannelFactory<IUniversalTimer> factory = new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer"));
 
             return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
+            return factory.CreateChannel();
         }
 
         static void AppStarter()
