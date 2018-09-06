@@ -1,4 +1,6 @@
 ﻿using Common;
+using SHES.Data.Access;
+using SHES.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,16 +20,20 @@ namespace SHES
             Console.WriteLine("SHES: Hello world!");
 
             AppStarter();
+            Thread.Sleep(1000);
 
-            IUniversalTimer proxy = Connect();
+            // set |DataDirectory| in App.config
+            string path = Directory.GetCurrentDirectory();
+            path = path.Substring(0, path.LastIndexOf("bin")) + "DB";
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
-            Console.WriteLine("Timer started");
-            
+            DBManager dBManager = DBManager.S_Instance;
 
-
-            // napravi objekat tipa Menu
-            // pokrenu metodu Display
-
+            if(dBManager.AddBattery(new Battery() { BatteryID = "123", Capacity = 5, MaxPower = 55 }))
+            {
+                Console.WriteLine("Battery added successfully!");
+            }
+                        
             Menu myMenu = new Menu();
             myMenu.Display();
         }
@@ -35,9 +41,9 @@ namespace SHES
         static IUniversalTimer Connect()
         {
             NetTcpBinding binding = new NetTcpBinding();
+            Thread.Sleep(5000);
             ChannelFactory<IUniversalTimer> factory = new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer"));
 
-            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
             return factory.CreateChannel();
         }
 

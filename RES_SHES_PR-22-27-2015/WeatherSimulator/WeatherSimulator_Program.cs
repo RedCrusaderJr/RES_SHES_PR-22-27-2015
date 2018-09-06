@@ -17,9 +17,6 @@ namespace WeatherSimulator
             int sunlightPercentage = 0;
             Random random = new Random();
 
-            WeatherForecast_Server server = new WeatherForecast_Server();
-            server.Open();
-
             while (true)
             {
                 
@@ -60,10 +57,6 @@ namespace WeatherSimulator
                 else if (hourOfTheDay >= 22.0 && hourOfTheDay <= 23.0)
                 {
                     sunlightPercentage = 0;
-                }
-                else
-                {
-                    sunlightPercentage = -1;
                 }
 
                 Console.WriteLine($"Sunlight(%): {sunlightPercentage}   time[{hourOfTheDay}]");

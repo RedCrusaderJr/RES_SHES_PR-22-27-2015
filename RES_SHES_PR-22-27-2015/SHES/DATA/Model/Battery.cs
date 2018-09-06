@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SHES.Data.Model
 {
-    public class Consumer
+    public class Battery
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string ConsumerID { get; set; }
-        public double Consumption { get; set; }
-        public bool Activity { get; set; }
+        public string BatteryID { get; set; }
+        public double MaxPower { get; set; }
+        public double Capacity { get; set; }
     }
 }
