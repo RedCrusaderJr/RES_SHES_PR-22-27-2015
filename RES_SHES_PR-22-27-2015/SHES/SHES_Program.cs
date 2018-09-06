@@ -23,11 +23,20 @@ namespace SHES
 
             Console.WriteLine("Timer started");
 
+            /*
             while(true)
             {
                 Console.WriteLine($"Global Time: Hours format[{proxy.GetGlobalTimeInHours()}]     Minutes format[{proxy.GetGlobalTimeInMinutes()}]     Seconds format[{proxy.GetGlobalTimeInSeconds()}]");
                 Thread.Sleep(1000);
             }
+            */
+
+
+            // napravi objekat tipa Menu
+            // pokrenu metodu Display
+
+            Menu myMenu = new Menu();
+            myMenu.Display();
         }
 
         static IUniversalTimer Connect()

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SHES.Model
 {
-    public class ElectricVehicleCharger : Battery
+    public class Consumer
     {
+        public string ConsumerID { get; set; }
+        public double Consumption { get; set; }
         public bool Activity { get; set; }
     }
 }
