@@ -19,6 +19,7 @@ namespace UniversalTimer
 
             while(true)
             {
+                
                 IUniversalTimer proxy = Connect();
                 Console.WriteLine($"Global Time: Hours format[{proxy.GetGlobalTimeInHours()}]     " +
                                   $"Minutes format[{proxy.GetGlobalTimeInMinutes()}]     " +

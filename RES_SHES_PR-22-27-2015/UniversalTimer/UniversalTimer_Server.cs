@@ -21,21 +21,21 @@ namespace UniversalTimer
 
             _serviceHost.AddServiceEndpoint(typeof(IUniversalTimer), binding, _hostAddress);
 
-            Console.WriteLine("Server initialized and ready to be opened.");
+            Console.WriteLine("Server TIMER initialized and ready to be opened.");
         }
 
         public void Open()
         {
             _serviceHost.Open();
 
-            Console.WriteLine("Server opened and ready and waiting for requests.");
+            Console.WriteLine("Server TIMER opened and ready and waiting for requests.");
         }
 
         public void Close()
         {
             _serviceHost.Close();
 
-            Console.WriteLine("Server closed.");
+            Console.WriteLine("Server TIMER closed.");
         }
     }
 }

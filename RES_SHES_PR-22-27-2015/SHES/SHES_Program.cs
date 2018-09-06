@@ -22,14 +22,7 @@ namespace SHES
             IUniversalTimer proxy = Connect();
 
             Console.WriteLine("Timer started");
-
-            /*
-            while(true)
-            {
-                Console.WriteLine($"Global Time: Hours format[{proxy.GetGlobalTimeInHours()}]     Minutes format[{proxy.GetGlobalTimeInMinutes()}]     Seconds format[{proxy.GetGlobalTimeInSeconds()}]");
-                Thread.Sleep(1000);
-            }
-            */
+            
 
 
             // napravi objekat tipa Menu
