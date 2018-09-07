@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SHES.Data.Access
@@ -12,7 +13,7 @@ namespace SHES.Data.Access
 
         #region Instance
         private static DBManager s_instance;
-
+        private static readonly object syncLock = new object();
         private DBManager() { }
 
         public static DBManager S_Instance
@@ -21,7 +22,13 @@ namespace SHES.Data.Access
             {
                 if (s_instance == null)
                 {
-                    s_instance = new DBManager();
+                    lock(syncLock)
+                    {
+                        if (s_instance == null)
+                        {
+                            s_instance = new DBManager();
+                        }
+                    }
                 }
 
                 return s_instance;

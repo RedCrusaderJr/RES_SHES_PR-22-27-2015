@@ -12,11 +12,26 @@ namespace SHES.Data.Model
     public class Battery
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string BatteryID { get; set; }
         public double MaxPower { get; set; }
         public double MaxCapacity { get; set; }
         public double CurrentCapacity { get; set; }
         public EMode Mode { get; set; }
+
+        public Battery() { }
+
+        public Battery(string id)
+        {
+            BatteryID = id;
+        }
+
+        public Battery(Battery b)
+        {
+            BatteryID = b.BatteryID;
+            MaxPower = b.MaxPower;
+            MaxCapacity = b.MaxCapacity;
+            CurrentCapacity = b.CurrentCapacity;
+            Mode = b.Mode;
+        }
     }
 }

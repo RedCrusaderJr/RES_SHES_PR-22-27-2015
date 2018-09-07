@@ -12,10 +12,24 @@ namespace SHES.Data.Model
     public class Consumer
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ConsumerID { get; set; }
         public double Consumption { get; set; }
         public bool Activity { get; set; }
         public EMode Mode { get; set; }
+
+        public Consumer() { }
+
+        public Consumer(string id)
+        {
+            ConsumerID = id;
+        }
+
+        public Consumer(Consumer c)
+        {
+            ConsumerID = c.ConsumerID;
+            Consumption = c.Consumption;
+            Activity = c.Activity;
+            Mode = c.Mode;
+        }
     }
 }
