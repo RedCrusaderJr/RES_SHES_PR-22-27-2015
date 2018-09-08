@@ -42,7 +42,7 @@ namespace SHES
             }
             else
             {
-                Consumer con = dBManager.GetConsumer(consumer.ConsumerID);
+                Consumer con = dBManager.GetSingleConsumer(consumer.ConsumerID);
                 consumer = new Consumer(con);
             }
             

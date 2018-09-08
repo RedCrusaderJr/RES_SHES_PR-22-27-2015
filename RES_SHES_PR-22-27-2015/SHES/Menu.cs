@@ -1,4 +1,5 @@
-﻿using SHES.Data.Model;
+﻿using SHES.Data.Access;
+using SHES.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,7 +154,14 @@ namespace SHES
             sp.MaxPower = Double.Parse(Console.ReadLine());
 
 
-            // dodaj sp u bazu
+            if (DBManager.S_Instance.AddSolarPanel(sp))
+            {
+                Console.WriteLine("Solarpanel added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("ID alredy used");
+            }
         }
 
         public void AddBattery()
@@ -170,8 +178,14 @@ namespace SHES
             Console.WriteLine("Batery Capacity: ");
             b.MaxCapacity = Double.Parse(Console.ReadLine());
 
-
-            // dodaj b u bazu
+            if (DBManager.S_Instance.AddBattery(b))
+            {
+                Console.WriteLine("Battery added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("ID alredy used");
+            }
         }
 
         public void AddEVC()
@@ -191,7 +205,14 @@ namespace SHES
             evc.Activity = false;
 
 
-            // dodaj evc u bazu
+            if (DBManager.S_Instance.AddElecticVehicleCharger(evc))
+            {
+                Console.WriteLine("EVC added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("ID alredy used");
+            }
         }
 
         public void AddConsumer()
@@ -208,7 +229,14 @@ namespace SHES
             c.Activity = false;
 
 
-            // dodaj c u bazu
+            if (DBManager.S_Instance.AddConsumer(c))
+            {
+                Console.WriteLine("Consumer added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("ID alredy used");
+            }
         }
 
         #endregion
@@ -267,49 +295,72 @@ namespace SHES
             }
         }
 
-
         public void RemoveSolarPanel()
         {
-            // ispis svih ?
+            Console.WriteLine("List of solar panels => ");
+            Dictionary<string, SolarPanel> solarPanels = DBManager.S_Instance.GetAllSolarPanels();
+            solarPanels.Values.ToList().ForEach(s => Console.WriteLine($"ID: {s.SolarPanelID}  MaxPower: {s.MaxPower}  Mode: {s.Mode}"));
 
             Console.WriteLine("Solar panel ID: ");
-
-            // proveri postojanje
-            // PRISTUP BAZI
-            // ukloni
+            string id = Console.ReadLine();
+            
+            if(solarPanels.ContainsKey(id))
+            {
+                DBManager.S_Instance.RemoveSolarPanel(solarPanels[id]);
+                Console.WriteLine($"Solar panel ID: {solarPanels[id].SolarPanelID} removed");
+            }
+            //nepostojeci...
         }
 
         public void RemoveBattery()
         {
-            // ispis svih ?
+            Console.WriteLine("List of batteries => ");
+            Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
+            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}"));
 
             Console.WriteLine("Battery ID: ");
+            string id = Console.ReadLine();
 
-            // proveri postojanje
-            // PRISTUP BAZI
-            // ukloni
+            if (batteries.ContainsKey(id))
+            {
+                DBManager.S_Instance.RemoveBattery(batteries[id]);
+                Console.WriteLine($"Battery ID: {batteries[id].BatteryID} removed");
+            }
+            //nepostojeci...
         }
 
         public void RemoveEVC()
         {
-            // ispis svih ?
+            Console.WriteLine("List of EVCs => ");
+            Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}"));
 
             Console.WriteLine("EVC-Battery ID: ");
+            string id = Console.ReadLine();
 
-            // proveri postojanje
-            // PRISTUP BAZI
-            // ukloni
+            if (evcs.ContainsKey(id))
+            {
+                DBManager.S_Instance.RemoveElectricVehicleCharger(evcs[id]);
+                Console.WriteLine($"EVC ID: {evcs[id].BatteryID} removed");
+            }
+            //nepostojeci...
         }
 
         public void RemoveConsumer()
         {
-            // ispis svih ?
+            Console.WriteLine("List of consumers => ");
+            Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}  Activity: {c.Activity}"));
 
             Console.WriteLine("Consumer ID: ");
+            string id = Console.ReadLine();
 
-            // proveri postojanje
-            // PRISTUP BAZI
-            // ukloni
+            if (consumers.ContainsKey(id))
+            {
+                DBManager.S_Instance.RemoveConsumer(consumers[id]);
+                Console.WriteLine($"Consumer ID: {consumers[id].ConsumerID} removed");
+            }
+            //nepostojeci...
         }
 
         #endregion
