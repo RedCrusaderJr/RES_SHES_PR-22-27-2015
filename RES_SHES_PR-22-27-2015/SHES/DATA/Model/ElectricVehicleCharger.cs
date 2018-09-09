@@ -9,7 +9,6 @@ namespace SHES.Data.Model
     public class ElectricVehicleCharger : Battery
     {
         public bool OnCharger { get; set; }
-        public bool Activity { get; set; }
 
         public ElectricVehicleCharger() : base() { }
 

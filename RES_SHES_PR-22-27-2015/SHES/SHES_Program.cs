@@ -48,6 +48,13 @@ namespace SHES
             
             Menu myMenu = new Menu();
             myMenu.Display();
+
+
+
+            // DUNJA
+            // task u kojem se racuna proizvodnja i potrosnja
+
+
         }
 
         static IUniversalTimer Connect()

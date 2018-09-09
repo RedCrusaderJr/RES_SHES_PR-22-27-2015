@@ -26,7 +26,8 @@ namespace SHES
                 Console.WriteLine("4. Change EVC's charging");
                 Console.WriteLine("5. Show report (graphic)");
                 Console.WriteLine("6. Show financial state");
-                Console.WriteLine("7. EXIT");
+                Console.WriteLine("7. Drive some car");
+                Console.WriteLine("8. EXIT");
 
                 Console.WriteLine();
                 Console.WriteLine("Your answer: ");
@@ -73,6 +74,11 @@ namespace SHES
                         }
                     case 7:
                         {
+                            DriveCar();
+                            break;
+                        }
+                    case 8:
+                        {
                             Console.WriteLine("Goodbye !");
                             break;
                         }
@@ -83,7 +89,7 @@ namespace SHES
                         }
                 }
             }
-            while (answer1 != 7);
+            while (answer1 != 8);
         }
 
 
@@ -315,7 +321,7 @@ namespace SHES
         {
             Console.WriteLine("List of batteries => ");
             Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
-            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}"));
+            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
 
             Console.WriteLine("Battery ID: ");
             string id = Console.ReadLine();
@@ -335,7 +341,7 @@ namespace SHES
         {
             Console.WriteLine("List of EVCs => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
-            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}"));
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
 
             Console.WriteLine("EVC-Battery ID: ");
             string id = Console.ReadLine();
@@ -408,8 +414,72 @@ namespace SHES
 
         public void ChangeEVCCharging()
         {
-            // izlistaj sve EVC - ove
-            // prihati ID, komandu za punjac i aktivnost
+            Console.WriteLine("List of EVCs => ");
+            Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
+
+            Console.WriteLine("EVC-Battery ID: ");
+            string id = Console.ReadLine();
+
+            if (evcs.ContainsKey(id))
+            {
+                ElectricVehicleCharger currentEVC = DBManager.S_Instance.GetSingleElectricVehicleCharger(id);
+
+                Console.WriteLine("Do you want to:");
+                Console.WriteLine("1) Change charger state");
+                Console.WriteLine("2) Change activity state");
+                Console.WriteLine();
+                
+                Console.WriteLine("Your answer: ");
+                Int32.TryParse(Console.ReadLine(), out answer2);
+
+
+                switch(answer2)
+                {
+                    case 1:
+                        {
+                            if(currentEVC.OnCharger == true)
+                            {
+                                currentEVC.Activity = false;
+                                currentEVC.Mode = Common.EMode.NONE;
+                                currentEVC.OnCharger = false;
+                            }
+                            else
+                            {
+                                currentEVC.OnCharger = true;
+                            }
+
+                            break;
+                        }
+                    case 2:
+                        {
+                            if(currentEVC.Activity == true)
+                            {
+                                currentEVC.Activity = false;
+                                currentEVC.Mode = Common.EMode.NONE;
+                            }
+                            else
+                            {
+                                if(currentEVC.OnCharger == true)
+                                {
+                                    currentEVC.Activity = true;
+                                    currentEVC.Mode = Common.EMode.CONSUMING;
+                                }
+                            }
+
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Your answer is NOT VALID !");
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                Console.WriteLine("EVC with that ID doesn't exist.");
+            }
         }
 
         public void ShowReport()
@@ -425,6 +495,11 @@ namespace SHES
         public void ShowFinancialState()
         {
             // prikazi trenutnu vrednost promenljive KASA (?)
+        }
+
+        public void DriveCar()
+        {
+
         }
     }
 }
