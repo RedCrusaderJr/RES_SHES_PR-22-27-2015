@@ -83,7 +83,7 @@ namespace SHES
                         }
                 }
             }
-            while (answer1 != 4);
+            while (answer1 != 7);
         }
 
 
@@ -147,7 +147,6 @@ namespace SHES
             SolarPanel sp = new SolarPanel();
 
             Console.WriteLine("Solar panel ID: ");
-            // provera jedinstvenosti
             sp.SolarPanelID = Console.ReadLine();
 
             Console.WriteLine("Solar panel MaxPower: ");
@@ -169,7 +168,6 @@ namespace SHES
             Battery b = new Battery();
 
             Console.WriteLine("Battery ID: ");
-            // provera jedinstvenosti
             b.BatteryID = Console.ReadLine();
 
             Console.WriteLine("Battery MaxPower: ");
@@ -193,7 +191,6 @@ namespace SHES
             ElectricVehicleCharger evc = new ElectricVehicleCharger();
 
             Console.WriteLine("EVC-Battery ID: ");
-            // provera jedinstvenosti
             evc.BatteryID = Console.ReadLine();
 
             Console.WriteLine("EVC-Battery MaxPower: ");
@@ -220,7 +217,6 @@ namespace SHES
             Consumer c = new Consumer();
 
             Console.WriteLine("Consumer ID: ");
-            // provera jedinstvenosti
             c.ConsumerID = Console.ReadLine();
 
             Console.WriteLine("Consumption: ");
@@ -309,7 +305,10 @@ namespace SHES
                 DBManager.S_Instance.RemoveSolarPanel(solarPanels[id]);
                 Console.WriteLine($"Solar panel ID: {solarPanels[id].SolarPanelID} removed");
             }
-            //nepostojeci...
+            else
+            {
+                Console.WriteLine("Solar panel with that ID doesn't exist.");
+            }
         }
 
         public void RemoveBattery()
@@ -326,7 +325,10 @@ namespace SHES
                 DBManager.S_Instance.RemoveBattery(batteries[id]);
                 Console.WriteLine($"Battery ID: {batteries[id].BatteryID} removed");
             }
-            //nepostojeci...
+            else
+            {
+                Console.WriteLine("Battery with that ID doesn't exist.");
+            }
         }
 
         public void RemoveEVC()
@@ -343,7 +345,10 @@ namespace SHES
                 DBManager.S_Instance.RemoveElectricVehicleCharger(evcs[id]);
                 Console.WriteLine($"EVC ID: {evcs[id].BatteryID} removed");
             }
-            //nepostojeci...
+            else
+            {
+                Console.WriteLine("EVC with that ID doesn't exist.");
+            }
         }
 
         public void RemoveConsumer()
@@ -360,7 +365,10 @@ namespace SHES
                 DBManager.S_Instance.RemoveConsumer(consumers[id]);
                 Console.WriteLine($"Consumer ID: {consumers[id].ConsumerID} removed");
             }
-            //nepostojeci...
+            else
+            {
+                Console.WriteLine("Consumer with that ID doesn't exist.");
+            }
         }
 
         #endregion
