@@ -308,8 +308,15 @@ namespace SHES
             
             if(solarPanels.ContainsKey(id))
             {
-                DBManager.S_Instance.RemoveSolarPanel(solarPanels[id]);
-                Console.WriteLine($"Solar panel ID: {solarPanels[id].SolarPanelID} removed");
+                if(DBManager.S_Instance.RemoveSolarPanel(solarPanels[id]))
+                {
+                    Console.WriteLine($"Solar panel ID: {solarPanels[id].SolarPanelID} removed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Solar panel ID: {solarPanels[id].SolarPanelID} IS NOT removed.");
+                }
+
             }
             else
             {
@@ -328,8 +335,14 @@ namespace SHES
 
             if (batteries.ContainsKey(id))
             {
-                DBManager.S_Instance.RemoveBattery(batteries[id]);
-                Console.WriteLine($"Battery ID: {batteries[id].BatteryID} removed");
+                if(DBManager.S_Instance.RemoveBattery(batteries[id]))
+                {
+                    Console.WriteLine($"Battery ID: {batteries[id].BatteryID} removed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Battery ID: {batteries[id].BatteryID} IS NOT removed.");
+                }
             }
             else
             {
@@ -348,8 +361,14 @@ namespace SHES
 
             if (evcs.ContainsKey(id))
             {
-                DBManager.S_Instance.RemoveElectricVehicleCharger(evcs[id]);
-                Console.WriteLine($"EVC ID: {evcs[id].BatteryID} removed");
+                if(DBManager.S_Instance.RemoveElectricVehicleCharger(evcs[id]))
+                {
+                    Console.WriteLine($"EVC ID: {evcs[id].BatteryID} removed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"EVC ID: {evcs[id].BatteryID} IS NOT removed.");
+                }
             }
             else
             {
@@ -368,8 +387,14 @@ namespace SHES
 
             if (consumers.ContainsKey(id))
             {
-                DBManager.S_Instance.RemoveConsumer(consumers[id]);
-                Console.WriteLine($"Consumer ID: {consumers[id].ConsumerID} removed");
+                if(DBManager.S_Instance.RemoveConsumer(consumers[id]))
+                {
+                    Console.WriteLine($"Consumer ID: {consumers[id].ConsumerID} removed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Consumer ID: {consumers[id].ConsumerID} IS NOT removed.");
+                }
             }
             else
             {
@@ -404,7 +429,14 @@ namespace SHES
                     updatedConsumer.Mode = Common.EMode.CONSUMING;
                 }
 
-                DBManager.S_Instance.UpdateConsumer(updatedConsumer);
+                if(DBManager.S_Instance.UpdateConsumer(updatedConsumer))
+                {
+                    Console.WriteLine($"Consumer ID: {updatedConsumer.ConsumerID} updated successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Consumer ID: {updatedConsumer.ConsumerID} IS NOT updated.");
+                }
             }
             else
             {
@@ -475,6 +507,16 @@ namespace SHES
                             break;
                         }
                 }
+
+
+                if(DBManager.S_Instance.UpdateElecticVehicleCharger(currentEVC))
+                {
+                    Console.WriteLine($"EVC ID: {currentEVC.BatteryID} updated successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"EVC ID: {currentEVC.BatteryID} IS NOT updated.");
+                }
             }
             else
             {
@@ -499,7 +541,8 @@ namespace SHES
 
         public void DriveCar()
         {
-
+            // ovo treba u posebnom tasku da se periodicno smanjuje 'CurrentCapacity'
+            // treba promeniti polja 'OnCharger', 'Activity' i 'Mode'
         }
     }
 }
