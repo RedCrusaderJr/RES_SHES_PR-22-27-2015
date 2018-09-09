@@ -376,11 +376,34 @@ namespace SHES
 
         public void ChangeConsumerActivity()
         {
+            Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}  Activity: {c.Activity}"));
 
-            // izlistaj sve Consumer - e (PRISTUP BAZI)
-            // prihvati ID onog cija se aktivnost menja
-            // izmeni njegovu aktivnost
+            Console.WriteLine();
+            Console.WriteLine("Consumer ID: ");
+            string id = Console.ReadLine();
 
+            if(consumers.ContainsKey(id))
+            {
+                Consumer updatedConsumer = DBManager.S_Instance.GetSingleConsumer(id);
+                
+                if(updatedConsumer.Activity == true)
+                {
+                    updatedConsumer.Activity = false;
+                    updatedConsumer.Mode = Common.EMode.NONE;
+                }
+                else
+                {
+                    updatedConsumer.Activity = true;
+                    updatedConsumer.Mode = Common.EMode.CONSUMING;
+                }
+
+                DBManager.S_Instance.UpdateConsumer(updatedConsumer);
+            }
+            else
+            {
+                Console.WriteLine("Consumer with that ID doesn't exist.");
+            }
         }
 
         public void ChangeEVCCharging()
