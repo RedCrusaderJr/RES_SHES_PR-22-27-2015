@@ -15,7 +15,7 @@ namespace SHES.Data.Model
         [Key]
         public string SolarPanelID { get; set; }
         public double MaxPower { get; set; }
-        public EMode Mode { get; set; } = EMode.GENERATING;
+        public bool IsGenerating { get; set; }
 
         public SolarPanel() { }
 
@@ -28,7 +28,7 @@ namespace SHES.Data.Model
         {
             SolarPanelID = sp.SolarPanelID;
             MaxPower = sp.MaxPower;
-            Mode = sp.Mode;
+            IsGenerating = sp.IsGenerating;
         }
 
         public double CalculatePower()

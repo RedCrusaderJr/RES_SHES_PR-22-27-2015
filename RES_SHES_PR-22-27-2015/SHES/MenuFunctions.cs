@@ -30,12 +30,47 @@ namespace SHES
             {
                 DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
                 double capacityChange = evc.CurrentCapacity * 60 - 1;
-                evc.CurrentCapacity = capacityChange / 60;
+                evc.CurrentCapacity = Math.Round(capacityChange / 60, 2);
                 DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
                 drivingMinutes--;
                 Thread.Sleep(Constants.MINUTE);
             }
             while (drivingMinutes > 0);
+        }
+
+        public static void ShowReport()
+        {
+            // iscrtaj grafik sa 4 krive
+            //
+            //      proizvodnja panela
+            //      energija iz baterija (+ / -)
+            //      uvoz iz utility-a (+ / -)
+            //      ukupna potrosnja
+        }
+
+        public static void ShowFinancialState()
+        {
+            // prikazi trenutnu vrednost promenljive KASA (?)
+        }
+
+        public static void ConnectEVC(ElectricVehicleCharger evc)
+        {
+
+        }
+
+        public static void DisconnectEVC(ElectricVehicleCharger evc)
+        {
+
+        }
+
+        public static void StartCharging(ElectricVehicleCharger evc)
+        {
+
+        }
+
+        public static void StopCharging(ElectricVehicleCharger evc)
+        {
+
         }
     }
 }

@@ -17,7 +17,6 @@ namespace SHES.Data.Model
         public ElectricVehicleCharger(ElectricVehicleCharger evc) : base(evc)
         {
             OnCharger = evc.OnCharger;
-            Activity = evc.Activity;
         }
     }
 }
