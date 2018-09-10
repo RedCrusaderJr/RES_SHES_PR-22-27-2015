@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SHES
@@ -145,8 +146,6 @@ namespace SHES
                     }
             }
         }
-
-
 
         public void AddSolarPanel()
         {
@@ -541,8 +540,38 @@ namespace SHES
 
         public void DriveCar()
         {
-            // ovo treba u posebnom tasku da se periodicno smanjuje 'CurrentCapacity'
-            // treba promeniti polja 'OnCharger', 'Activity' i 'Mode'
+            Console.WriteLine("List of cars (EVCs)  => ");
+            Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
+
+            Console.WriteLine("Car ID (EVC-Battery ID): ");
+            string id = Console.ReadLine();
+
+            if (evcs.ContainsKey(id))
+            {
+                double drivingHours = 0;
+                while (true)
+                {
+                    Console.WriteLine($"You can drive for {evcs[id].CurrentCapacity} hours.");
+                    Console.WriteLine("For how long will you drive?");
+                    Double.TryParse(Console.ReadLine(), out drivingHours);
+
+                    if(evcs[id].CurrentCapacity - drivingHours >= 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You can not drive for that long.");
+                    }
+                }
+
+                MenuFunctions.StartDriving(evcs[id], drivingHours);
+            }
+            else
+            {
+                Console.WriteLine("EVC with that ID doesn't exist.");
+            }
         }
     }
 }

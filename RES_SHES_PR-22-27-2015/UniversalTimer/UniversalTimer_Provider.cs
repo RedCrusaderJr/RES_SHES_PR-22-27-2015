@@ -31,7 +31,7 @@ namespace UniversalTimer
                 while(true)
                 {
                     S_Time++;
-                    Thread.Sleep(10);
+                    Thread.Sleep(Constants.SECOND);
                 }
             });
 
