@@ -116,7 +116,13 @@ namespace SHES.Data.Access
                 {
                     Battery foundBattery = dbContext.Batteries.SingleOrDefault(b => b.BatteryID.Equals(battery.BatteryID));
                     dbContext.Batteries.Attach(foundBattery);
-                    foundBattery = new Battery(battery);
+
+                    foundBattery.MaxPower = battery.MaxPower;
+                    foundBattery.MaxCapacity = battery.MaxCapacity;
+                    foundBattery.CurrentCapacity = battery.CurrentCapacity;
+                    foundBattery.Activity = battery.Activity;
+                    foundBattery.Mode = battery.Mode;
+
                     dbContext.SaveChanges();
 
                     return true;
@@ -135,7 +141,11 @@ namespace SHES.Data.Access
                 {
                     Consumer foundConsumer = dbContext.Consumers.SingleOrDefault(c => c.ConsumerID.Equals(consumer.ConsumerID));
                     dbContext.Consumers.Attach(foundConsumer);
-                    foundConsumer = new Consumer(consumer);
+
+                    foundConsumer.Consumption = consumer.Consumption;
+                    foundConsumer.Activity = consumer.Activity;
+                    foundConsumer.Mode = consumer.Mode;
+
                     dbContext.SaveChanges();
 
                     return true;
@@ -154,7 +164,10 @@ namespace SHES.Data.Access
                 {
                     SolarPanel foundSolarPanel = dbContext.SolarPanels.SingleOrDefault(s => s.SolarPanelID.Equals(solarPanel.SolarPanelID));
                     dbContext.SolarPanels.Attach(foundSolarPanel);
-                    foundSolarPanel = new SolarPanel(solarPanel);
+
+                    foundSolarPanel.MaxPower = solarPanel.MaxPower;
+                    foundSolarPanel.Mode = solarPanel.Mode;
+
                     dbContext.SaveChanges();
 
                     return true;
@@ -173,7 +186,14 @@ namespace SHES.Data.Access
                 {
                     ElectricVehicleCharger foundEVC = dbContext.ElectricVehicleChargers.SingleOrDefault(evc => evc.BatteryID.Equals(electricVehicleCharger.BatteryID));
                     dbContext.ElectricVehicleChargers.Attach(foundEVC);
-                    foundEVC = new ElectricVehicleCharger(foundEVC);
+
+                    foundEVC.MaxPower = electricVehicleCharger.MaxPower;
+                    foundEVC.MaxCapacity = electricVehicleCharger.MaxCapacity;
+                    foundEVC.CurrentCapacity = electricVehicleCharger.CurrentCapacity;
+                    foundEVC.Activity = electricVehicleCharger.Activity;
+                    foundEVC.Mode = electricVehicleCharger.Mode;
+                    foundEVC.OnCharger = electricVehicleCharger.OnCharger;
+
                     dbContext.SaveChanges();
 
                     return true;
