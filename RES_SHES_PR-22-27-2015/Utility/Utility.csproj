@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Utility_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility_Provider.cs" />
+    <Compile Include="Utility_Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
