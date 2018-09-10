@@ -33,5 +33,31 @@ namespace SHES.Data.Model
             CurrentCapacity = b.CurrentCapacity;
             Mode = b.Mode;
         }
+
+        public void Charging()
+        {
+            if(CurrentCapacity < MaxCapacity)
+            {
+                CurrentCapacity++;
+                Mode = EMode.CONSUMING;
+            }
+            else
+            {
+                Mode = EMode.NONE;
+            }
+        }
+
+        public void Using()
+        {
+            if(CurrentCapacity > 0)
+            {
+                CurrentCapacity--;
+                Mode = EMode.GENERATING;
+            }
+            else
+            {
+                Mode = EMode.NONE;
+            }
+        }
     }
 }

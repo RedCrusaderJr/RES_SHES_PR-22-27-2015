@@ -11,7 +11,6 @@ namespace WeatherSimulator
 {
     class WeatherForecast_Provider : IWeatherForecast
     {
-
         public int GetSunlightPercentage()
         {
             IUniversalTimer proxy = Connect();

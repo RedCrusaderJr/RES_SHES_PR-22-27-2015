@@ -234,8 +234,13 @@ namespace SHES
 
             Console.WriteLine("Consumption: ");
             c.Consumption = Double.Parse(Console.ReadLine());
+<<<<<<< HEAD
 
             c.IsConsuming = false;
+=======
+            
+            c.Mode = Common.EMode.NONE;
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
 
             if (DBManager.S_Instance.AddConsumer(c))
             {
@@ -387,7 +392,11 @@ namespace SHES
         {
             Console.WriteLine("List of consumers => ");
             Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
+<<<<<<< HEAD
             consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  IsConsuming: {c.IsConsuming}"));
+=======
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}"));
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
 
             Console.WriteLine("Consumer ID: ");
             string id = Console.ReadLine();
@@ -414,7 +423,11 @@ namespace SHES
         public void ChangeConsumerActivity()
         {
             Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
+<<<<<<< HEAD
             consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Activity: {c.IsConsuming}"));
+=======
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}"));
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
 
             Console.WriteLine();
             Console.WriteLine("Consumer ID: ");
@@ -424,6 +437,7 @@ namespace SHES
             {
                 Consumer updatedConsumer = consumers[id];
                 
+<<<<<<< HEAD
                 if(updatedConsumer.IsConsuming == true)
                 {
                     updatedConsumer.IsConsuming = false;
@@ -431,6 +445,15 @@ namespace SHES
                 else
                 {
                     updatedConsumer.IsConsuming = true;
+=======
+                if(updatedConsumer.Mode == Common.EMode.CONSUMING)
+                {
+                    updatedConsumer.Mode = Common.EMode.NONE;
+                }
+                else
+                {
+                    updatedConsumer.Mode = Common.EMode.CONSUMING;
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
                 }
 
                 if(DBManager.S_Instance.UpdateConsumer(updatedConsumer))
@@ -479,7 +502,12 @@ namespace SHES
                         {
                             if (currentEVC.OnCharger)
                             {
+<<<<<<< HEAD
                                 Console.WriteLine($"Battery with ID: {id} is already connected.");
+=======
+                                currentEVC.OnCharger = false;
+                                currentEVC.Mode = Common.EMode.NONE;
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
                             }
                             else
                             {
@@ -491,6 +519,7 @@ namespace SHES
                         
                     case 2:
                         {
+<<<<<<< HEAD
                             if (currentEVC.OnCharger)
                             {
                                 Console.WriteLine($"Battery with ID: {id} is already disconnected.");
@@ -511,6 +540,22 @@ namespace SHES
                             else
                             {
                                 Console.WriteLine($"EVC-battery with ID: {id} because it is not connected to a charger.");
+=======
+                            if(currentEVC.Mode == Common.EMode.CONSUMING)
+                            {
+                                currentEVC.Mode = Common.EMode.NONE;
+                            }
+                            else
+                            {
+                                if(currentEVC.OnCharger == true)
+                                {
+                                    currentEVC.Mode = Common.EMode.CONSUMING;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"You can't activate EVC-battery with ID: {id} because it is not on charger.");
+                                }
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
                             }
                             break;
                         }
@@ -555,7 +600,11 @@ namespace SHES
         {
             Console.WriteLine("List of cars (EVCs)  => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
+<<<<<<< HEAD
             evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Mode: {b.Mode}"));
+=======
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}"));
+>>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
 
             Console.WriteLine("Car ID (EVC-Battery ID): ");
             string id = Console.ReadLine();
