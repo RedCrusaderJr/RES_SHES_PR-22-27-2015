@@ -15,7 +15,7 @@ namespace UniversalTimer
         {
             UniversalTimer_Server server = new UniversalTimer_Server();
             server.Open();
-            Thread.Sleep(1000);
+            Thread.Sleep(Constants.WAITING_TIME);
 
             while(true)
             {
@@ -24,7 +24,7 @@ namespace UniversalTimer
                                   $"Minutes format[{proxy.GetGlobalTimeInMinutes()}]     " +
                                   $"Seconds format[{proxy.GetGlobalTimeInSeconds()}]");
 
-                Thread.Sleep(1000);
+                Thread.Sleep(Constants.SECOND);
             }        
         }
 

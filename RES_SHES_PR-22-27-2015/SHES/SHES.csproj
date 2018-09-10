@@ -73,6 +73,7 @@
     <Compile Include="DATA\Model\Consumer.cs" />
     <Compile Include="DATA\Model\ElectricVehicleCharger.cs" />
     <Compile Include="DATA\Model\SolarPanel.cs" />
+    <Compile Include="MenuFunctions.cs" />
     <Compile Include="SHES_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

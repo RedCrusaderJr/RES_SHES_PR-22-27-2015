@@ -24,4 +24,11 @@ namespace Common
         [OperationContract]
         Int32 GetSunlightPercentage();
     }
+
+    [ServiceContract]
+    public interface IPowerPrice
+    {
+        [OperationContract]
+        Double GetPowerPrice();
+    }
 }
