@@ -142,11 +142,7 @@ namespace SHES.Data.Access
                     dbContext.Consumers.Attach(foundConsumer);
 
                     foundConsumer.Consumption = consumer.Consumption;
-<<<<<<< HEAD
                     foundConsumer.IsConsuming = consumer.IsConsuming;
-=======
-                    foundConsumer.Mode = consumer.Mode;
->>>>>>> 5115fe98c8cb47aafe1cd46525210f547f96e35f
 
                     dbContext.SaveChanges();
 
