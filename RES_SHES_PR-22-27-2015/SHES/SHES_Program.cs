@@ -32,6 +32,8 @@ namespace SHES
             */        
 
             Menu myMenu = new Menu();
+
+
             myMenu.Display();
 
             // DUNJA
@@ -70,7 +72,7 @@ namespace SHES
             }
 
 
-            Consumer consumer = new Consumer("ID007") { Activity = false, Mode = EMode.NONE, Consumption = 12 };
+            Consumer consumer = new Consumer("ID007") { Mode = EMode.NONE, Consumption = 12 };
             if (dBManager.AddConsumer(consumer))
             {
                 Console.WriteLine("Consumer added successfully!");

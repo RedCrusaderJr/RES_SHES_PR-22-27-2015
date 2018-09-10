@@ -14,7 +14,6 @@ namespace SHES.Data.Model
         [Key]
         public string ConsumerID { get; set; }
         public double Consumption { get; set; }
-        public bool Activity { get; set; }
         public EMode Mode { get; set; }
 
         public Consumer() { }
@@ -28,7 +27,6 @@ namespace SHES.Data.Model
         {
             ConsumerID = c.ConsumerID;
             Consumption = c.Consumption;
-            Activity = c.Activity;
             Mode = c.Mode;
         }
     }

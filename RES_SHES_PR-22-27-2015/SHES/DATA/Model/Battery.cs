@@ -16,7 +16,6 @@ namespace SHES.Data.Model
         public double MaxPower { get; set; }
         public double MaxCapacity { get; set; }
         public double CurrentCapacity { get; set; }
-        public bool Activity { get; set; }
         public EMode Mode { get; set; }
 
         public Battery() { }
@@ -32,8 +31,33 @@ namespace SHES.Data.Model
             MaxPower = b.MaxPower;
             MaxCapacity = b.MaxCapacity;
             CurrentCapacity = b.CurrentCapacity;
-            Activity = b.Activity;
             Mode = b.Mode;
+        }
+
+        public void Charging()
+        {
+            if(CurrentCapacity < MaxCapacity)
+            {
+                CurrentCapacity++;
+                Mode = EMode.CONSUMING;
+            }
+            else
+            {
+                Mode = EMode.NONE;
+            }
+        }
+
+        public void Using()
+        {
+            if(CurrentCapacity > 0)
+            {
+                CurrentCapacity--;
+                Mode = EMode.GENERATING;
+            }
+            else
+            {
+                Mode = EMode.NONE;
+            }
         }
     }
 }

@@ -120,7 +120,6 @@ namespace SHES.Data.Access
                     foundBattery.MaxPower = battery.MaxPower;
                     foundBattery.MaxCapacity = battery.MaxCapacity;
                     foundBattery.CurrentCapacity = battery.CurrentCapacity;
-                    foundBattery.Activity = battery.Activity;
                     foundBattery.Mode = battery.Mode;
 
                     dbContext.SaveChanges();
@@ -143,7 +142,6 @@ namespace SHES.Data.Access
                     dbContext.Consumers.Attach(foundConsumer);
 
                     foundConsumer.Consumption = consumer.Consumption;
-                    foundConsumer.Activity = consumer.Activity;
                     foundConsumer.Mode = consumer.Mode;
 
                     dbContext.SaveChanges();
@@ -190,7 +188,6 @@ namespace SHES.Data.Access
                     foundEVC.MaxPower = electricVehicleCharger.MaxPower;
                     foundEVC.MaxCapacity = electricVehicleCharger.MaxCapacity;
                     foundEVC.CurrentCapacity = electricVehicleCharger.CurrentCapacity;
-                    foundEVC.Activity = electricVehicleCharger.Activity;
                     foundEVC.Mode = electricVehicleCharger.Mode;
                     foundEVC.OnCharger = electricVehicleCharger.OnCharger;
 

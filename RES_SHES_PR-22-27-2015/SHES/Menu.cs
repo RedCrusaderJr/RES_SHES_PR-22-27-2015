@@ -187,7 +187,6 @@ namespace SHES
             b.MaxCapacity = Double.Parse(Console.ReadLine());
 
             b.CurrentCapacity = 0;
-            b.Activity = false;
             b.Mode = Common.EMode.NONE;
 
             if (DBManager.S_Instance.AddBattery(b))
@@ -214,7 +213,6 @@ namespace SHES
             evc.MaxCapacity = Double.Parse(Console.ReadLine());
 
             evc.CurrentCapacity = 0;
-            evc.Activity = false;
             evc.Mode = Common.EMode.NONE;
             evc.OnCharger = false;
 
@@ -237,8 +235,7 @@ namespace SHES
 
             Console.WriteLine("Consumption: ");
             c.Consumption = Double.Parse(Console.ReadLine());
-
-            c.Activity = false;
+            
             c.Mode = Common.EMode.NONE;
 
             if (DBManager.S_Instance.AddConsumer(c))
@@ -338,7 +335,7 @@ namespace SHES
         {
             Console.WriteLine("List of batteries => ");
             Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
-            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}  Mode: {b.Mode}"));
+            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Mode: {b.Mode}"));
 
             Console.WriteLine("Battery ID: ");
             string id = Console.ReadLine();
@@ -364,7 +361,7 @@ namespace SHES
         {
             Console.WriteLine("List of EVCs => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
-            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}  Mode: {b.Mode}  OnCharger: {b.OnCharger}"));
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Mode: {b.Mode}  OnCharger: {b.OnCharger}"));
 
             Console.WriteLine("EVC-Battery ID: ");
             string id = Console.ReadLine();
@@ -390,7 +387,7 @@ namespace SHES
         {
             Console.WriteLine("List of consumers => ");
             Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
-            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Activity: {c.Activity}  Mode: {c.Mode}"));
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}"));
 
             Console.WriteLine("Consumer ID: ");
             string id = Console.ReadLine();
@@ -418,7 +415,7 @@ namespace SHES
         public void ChangeConsumerActivity()
         {
             Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
-            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}  Activity: {c.Activity}"));
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}"));
 
             Console.WriteLine();
             Console.WriteLine("Consumer ID: ");
@@ -428,14 +425,12 @@ namespace SHES
             {
                 Consumer updatedConsumer = consumers[id];
                 
-                if(updatedConsumer.Activity == true)
+                if(updatedConsumer.Mode == Common.EMode.CONSUMING)
                 {
-                    updatedConsumer.Activity = false;
                     updatedConsumer.Mode = Common.EMode.NONE;
                 }
                 else
                 {
-                    updatedConsumer.Activity = true;
                     updatedConsumer.Mode = Common.EMode.CONSUMING;
                 }
 
@@ -458,7 +453,7 @@ namespace SHES
         {
             Console.WriteLine("List of EVCs => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
-            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}  Mode: {b.Mode}  OnCharger: {b.OnCharger}"));
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Mode: {b.Mode}  OnCharger: {b.OnCharger}"));
 
             Console.WriteLine("EVC-Battery ID: ");
             string id = Console.ReadLine();
@@ -483,7 +478,6 @@ namespace SHES
                             if(currentEVC.OnCharger == true)
                             {
                                 currentEVC.OnCharger = false;
-                                currentEVC.Activity = false;        // aktivnost punjenja (nasledjena karakteristika baterije)
                                 currentEVC.Mode = Common.EMode.NONE;
                             }
                             else
@@ -495,16 +489,14 @@ namespace SHES
                         }
                     case 2:
                         {
-                            if(currentEVC.Activity == true)
+                            if(currentEVC.Mode == Common.EMode.CONSUMING)
                             {
-                                currentEVC.Activity = false;
                                 currentEVC.Mode = Common.EMode.NONE;
                             }
                             else
                             {
                                 if(currentEVC.OnCharger == true)
                                 {
-                                    currentEVC.Activity = true;
                                     currentEVC.Mode = Common.EMode.CONSUMING;
                                 }
                                 else
@@ -557,7 +549,7 @@ namespace SHES
         {
             Console.WriteLine("List of cars (EVCs)  => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
-            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}"));
 
             Console.WriteLine("Car ID (EVC-Battery ID): ");
             string id = Console.ReadLine();
