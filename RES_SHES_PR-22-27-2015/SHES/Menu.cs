@@ -80,6 +80,9 @@ namespace SHES
                     case 8:
                         {
                             Console.WriteLine("Goodbye !");
+
+                            // TODO: pogasi sve aplikacije, ako moze
+
                             break;
                         }
                     default:
@@ -388,7 +391,7 @@ namespace SHES
         {
             Console.WriteLine("List of consumers => ");
             Dictionary<string, Consumer> consumers = DBManager.S_Instance.GetAllConsumers();
-            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Mode: {c.Mode}  Activity: {c.Activity}"));
+            consumers.Values.ToList().ForEach(c => Console.WriteLine($"ID: {c.ConsumerID}  Consumption: {c.Consumption}  Activity: {c.Activity}  Mode: {c.Mode}"));
 
             Console.WriteLine("Consumer ID: ");
             string id = Console.ReadLine();
@@ -456,7 +459,7 @@ namespace SHES
         {
             Console.WriteLine("List of EVCs => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
-            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}  Mode: {b.Mode}  OnCharger: {b.OnCharger}"));
 
             Console.WriteLine("EVC-Battery ID: ");
             string id = Console.ReadLine();
@@ -480,9 +483,9 @@ namespace SHES
                         {
                             if(currentEVC.OnCharger == true)
                             {
-                                currentEVC.Activity = false;
-                                currentEVC.Mode = Common.EMode.NONE;
                                 currentEVC.OnCharger = false;
+                                currentEVC.Activity = false;        // aktivnost punjenja (nasledjena karakteristika baterije)
+                                currentEVC.Mode = Common.EMode.NONE;
                             }
                             else
                             {
@@ -504,6 +507,10 @@ namespace SHES
                                 {
                                     currentEVC.Activity = true;
                                     currentEVC.Mode = Common.EMode.CONSUMING;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"You can't activate EVC-battery with ID: {id} because it is not on charger.");
                                 }
                             }
 
