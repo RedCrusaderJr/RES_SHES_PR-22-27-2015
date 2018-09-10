@@ -157,6 +157,8 @@ namespace SHES
             Console.WriteLine("Solar panel MaxPower: ");
             sp.MaxPower = Double.Parse(Console.ReadLine());
 
+            sp.Mode = Common.EMode.GENERATING;
+
 
             if (DBManager.S_Instance.AddSolarPanel(sp))
             {
@@ -181,6 +183,10 @@ namespace SHES
             Console.WriteLine("Batery Capacity: ");
             b.MaxCapacity = Double.Parse(Console.ReadLine());
 
+            b.CurrentCapacity = 0;
+            b.Activity = false;
+            b.Mode = Common.EMode.NONE;
+
             if (DBManager.S_Instance.AddBattery(b))
             {
                 Console.WriteLine("Battery added successfully.");
@@ -204,8 +210,10 @@ namespace SHES
             Console.WriteLine("EVC-Batery Capacity: ");
             evc.MaxCapacity = Double.Parse(Console.ReadLine());
 
+            evc.CurrentCapacity = 0;
             evc.Activity = false;
-
+            evc.Mode = Common.EMode.NONE;
+            evc.OnCharger = false;
 
             if (DBManager.S_Instance.AddElecticVehicleCharger(evc))
             {
@@ -228,7 +236,7 @@ namespace SHES
             c.Consumption = Double.Parse(Console.ReadLine());
 
             c.Activity = false;
-
+            c.Mode = Common.EMode.NONE;
 
             if (DBManager.S_Instance.AddConsumer(c))
             {
@@ -327,7 +335,7 @@ namespace SHES
         {
             Console.WriteLine("List of batteries => ");
             Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
-            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
+            batteries.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}  Mode: {b.Mode}"));
 
             Console.WriteLine("Battery ID: ");
             string id = Console.ReadLine();
@@ -353,7 +361,7 @@ namespace SHES
         {
             Console.WriteLine("List of EVCs => ");
             Dictionary<string, ElectricVehicleCharger> evcs = DBManager.S_Instance.GetAllElectricVehicleChargers();
-            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  Mode: {b.Mode}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}"));
+            evcs.Values.ToList().ForEach(b => Console.WriteLine($"ID: {b.BatteryID}  MaxPower: {b.MaxPower}  MaxCapacity: {b.MaxCapacity}  CurrentCapacity: {b.CurrentCapacity}  Activity: {b.Activity}  Mode: {b.Mode}  OnCharger: {b.OnCharger}"));
 
             Console.WriteLine("EVC-Battery ID: ");
             string id = Console.ReadLine();
@@ -415,7 +423,7 @@ namespace SHES
 
             if(consumers.ContainsKey(id))
             {
-                Consumer updatedConsumer = DBManager.S_Instance.GetSingleConsumer(id);
+                Consumer updatedConsumer = consumers[id];
                 
                 if(updatedConsumer.Activity == true)
                 {
