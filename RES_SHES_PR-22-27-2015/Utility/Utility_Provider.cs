@@ -17,14 +17,30 @@ namespace Utility
             double price = 0;
 
             double USDToRSDRatio = 101.94;
-            double highPrice = 7.117 / USDToRSDRatio;
-            double lowPrice = 2.372 / USDToRSDRatio;
+            double highPrice = Math.Round(7.117 / USDToRSDRatio, 3);
+            double lowPrice = Math.Round(2.372 / USDToRSDRatio, 3);
 
             double hourOfTheDay = proxy.GetGlobalTimeInHours();
 
             price = (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0) ? lowPrice : highPrice;
 
             return price;
+        }
+
+        public Tuple<Tuple<int, double>, double> GetPowerPriceWithDate()
+        {
+            IUniversalTimer proxy = Connect();
+            double price = 0;
+
+            double USDToRSDRatio = 101.94;
+            double highPrice = Math.Round(7.117 / USDToRSDRatio, 3);
+            double lowPrice = Math.Round(2.372 / USDToRSDRatio, 3);
+
+            Tuple<Int32, Double> dayAndHour = proxy.GetGlobalTimeInDayAndHour();
+
+            price = (dayAndHour.Item2 >= 1.0 && dayAndHour.Item2 < 7.0) ? lowPrice : highPrice;
+
+            return new Tuple<Tuple<int, double>, double>(dayAndHour, price);
         }
 
         private IUniversalTimer Connect()

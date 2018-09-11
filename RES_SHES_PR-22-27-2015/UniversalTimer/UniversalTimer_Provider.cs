@@ -11,6 +11,7 @@ namespace UniversalTimer
     public class UniversalTimer_Provider : IUniversalTimer
     {
         private static Int32 s_time;
+        private static Int32 s_day;
 
         public static Int32  S_Time
         {
@@ -25,17 +26,42 @@ namespace UniversalTimer
             }
         }
 
+        /*
         public UniversalTimer_Provider()
         {
             Task task = new Task(() => {
                 while(true)
                 {
-                    S_Time++;
+                    if(++S_Time % (24 * 60 * 60) == 0)
+                    {
+                        s_day++;
+                    }
+
                     Thread.Sleep(Constants.SECOND);
                 }
             });
 
             task.Start();
+        }
+        */
+
+        //Drugi poziv?
+        public void StartTimer()
+        {
+            S_Time = 0;
+            s_day = 1;
+
+            Task.Run(() => {
+                while (true)
+                {
+                    if (++S_Time % (24 * 60 * 60) == 0)
+                    {
+                        s_day++;
+                    }
+
+                    Thread.Sleep(Constants.SECOND);
+                }
+            });
         }
 
         public double GetGlobalTimeInHours()
@@ -51,6 +77,16 @@ namespace UniversalTimer
         public int GetGlobalTimeInSeconds()
         {
             return S_Time;
+        }
+
+        public int GetGlobalTimeDay()
+        {
+            return s_day;
+        }
+
+        public Tuple<int, double> GetGlobalTimeInDayAndHour()
+        {
+            return new Tuple<int, double>(GetGlobalTimeDay(), GetGlobalTimeInHours());
         }
     }
 }

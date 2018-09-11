@@ -11,7 +11,7 @@ namespace Utility
     class Utility_Server
     {
         private ServiceHost _serviceHost;
-        private String _hostAddress = "net.tcp://localhost:6001/Utility";
+        private String _hostAddress = "net.tcp://localhost:6002/Utility";
 
         public Utility_Server()
         {

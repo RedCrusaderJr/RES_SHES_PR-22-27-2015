@@ -104,6 +104,23 @@ namespace SHES.Data.Access
                 return true;
             }
         }
+
+        public bool AddMeasurement(Measurement measurement)
+        {
+            using (SHES_DBContext dbContext = new SHES_DBContext())
+            {
+                bool found = dbContext.Measurements.Any(m => m.MesurementID.Equals(measurement.MesurementID));
+                if (found)
+                {
+                    return false;
+                }
+
+                dbContext.Measurements.Add(measurement);
+                dbContext.SaveChanges();
+
+                return true;
+            }
+        }
         #endregion
 
         #region UpdateOperations
@@ -286,6 +303,34 @@ namespace SHES.Data.Access
                 }
 
                 return electricVehicleChargers;
+            }
+        }
+
+        public Dictionary<Double, Measurement> GetAllMeasurementsBySpecificDay(Int32 day)
+        {
+            using (SHES_DBContext dbContext = new SHES_DBContext())
+            {
+                Dictionary<Double, Measurement> measurements = dbContext.Measurements.Where(m => m.Day == day).ToDictionary(m => m.HourOfTheDay, m => m);
+                if (measurements == null)
+                {
+                    measurements = new Dictionary<Double, Measurement>();
+                }
+
+                return measurements;
+            }
+        }
+
+        public Dictionary<Int32, Dictionary<Double,Measurement>> GetAllMeasurements()
+        {
+            using (SHES_DBContext dbContext = new SHES_DBContext())
+            {
+                Dictionary<Int32, Dictionary<Double, Measurement>> measurements = dbContext.Measurements.ToDictionary(m => m.Day, m => GetAllMeasurementsBySpecificDay(m.Day));
+                if (measurements == null)
+                {
+                    measurements = new Dictionary<Int32, Dictionary<Double, Measurement>>();
+                }
+
+                return measurements;
             }
         }
         #endregion

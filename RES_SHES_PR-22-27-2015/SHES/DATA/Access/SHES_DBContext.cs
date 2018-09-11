@@ -19,5 +19,6 @@ namespace SHES.Data.Access
         public DbSet<Consumer> Consumers { get; set; }
         public DbSet<SolarPanel> SolarPanels { get; set; }
         public DbSet<ElectricVehicleCharger> ElectricVehicleChargers { get; set; }
+        public DbSet<Measurement> Measurements { get; set; }
     }
 }

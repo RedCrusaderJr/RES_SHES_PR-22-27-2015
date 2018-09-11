@@ -13,6 +13,8 @@ namespace UniversalTimer
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("UniversalTimer: Hello world!");
+
             UniversalTimer_Server server = new UniversalTimer_Server();
             server.Open();
             Thread.Sleep(Constants.WAITING_TIME);

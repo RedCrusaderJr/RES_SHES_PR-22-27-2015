@@ -11,11 +11,17 @@ namespace Common
     public interface IUniversalTimer
     {
         [OperationContract]
+        void StartTimer();
+        [OperationContract]
         Int32 GetGlobalTimeInSeconds();
         [OperationContract]
         Int32 GetGlobalTimeInMinutes();
         [OperationContract]
         Double GetGlobalTimeInHours();
+        [OperationContract]
+        Int32 GetGlobalTimeDay();
+        [OperationContract]
+        Tuple<Int32, Double> GetGlobalTimeInDayAndHour();
     }
 
     [ServiceContract]
@@ -30,5 +36,8 @@ namespace Common
     {
         [OperationContract]
         Double GetPowerPrice();
+
+        [OperationContract]
+        Tuple<Tuple<Int32, Double>, Double> GetPowerPriceWithDate();
     }
 }

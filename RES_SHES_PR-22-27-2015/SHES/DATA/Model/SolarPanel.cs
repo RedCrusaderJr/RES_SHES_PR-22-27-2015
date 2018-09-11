@@ -39,7 +39,7 @@ namespace SHES.Data.Model
         {
             NetTcpBinding binding = new NetTcpBinding();
 
-            return new ChannelFactory<IWeatherForecast>(binding, new EndpointAddress("net.tcp://localhost:6001/WeatherForecast")).CreateChannel();
+            return new ChannelFactory<IWeatherForecast>(binding, new EndpointAddress("net.tcp://localhost:6001/WeathetForecast")).CreateChannel();
         }
     }
 }

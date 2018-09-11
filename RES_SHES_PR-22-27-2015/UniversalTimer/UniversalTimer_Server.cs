@@ -29,6 +29,8 @@ namespace UniversalTimer
             _serviceHost.Open();
 
             Console.WriteLine("Server opened and ready and waiting for requests.");
+
+            new ChannelFactory<IUniversalTimer>(new NetTcpBinding(), new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel().StartTimer();
         }
 
         public void Close()

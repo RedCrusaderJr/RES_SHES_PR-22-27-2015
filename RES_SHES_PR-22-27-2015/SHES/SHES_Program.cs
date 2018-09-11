@@ -31,8 +31,8 @@ namespace SHES
             TestData();
             */
 
-
-            // StartAllTasks();
+            Thread.Sleep(Constants.WAITING_TIME);
+            StartAllTasks();
 
             Menu myMenu = new Menu();
             myMenu.Display();
@@ -67,8 +67,8 @@ namespace SHES
 
         private static void StartAllTasks()
         {
-            Task task_BatteryBehavior = Task.Run(() => SHES_Tasks.BatteryBehavior());
-            Task task_MainCalculus = Task.Run(() => SHES_Tasks.MainCalculus());
+            Task.Run(() => SHES_Tasks.BatteryBehavior());
+            Task.Run(() => SHES_Tasks.MainCalculus());
         }
 
 

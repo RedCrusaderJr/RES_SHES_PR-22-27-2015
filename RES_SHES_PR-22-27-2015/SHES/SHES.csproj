@@ -65,14 +65,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DATA\Access\Configuration.cs" />
-    <Compile Include="DATA\Access\DBManager.cs" />
-    <Compile Include="DATA\Access\SHES_DBContext.cs" />
+    <Compile Include="Data\Access\Configuration.cs" />
+    <Compile Include="Data\Access\DBManager.cs" />
+    <Compile Include="Data\Access\SHES_DBContext.cs" />
+    <Compile Include="Data\Model\Measurement.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="DATA\Model\Battery.cs" />
-    <Compile Include="DATA\Model\Consumer.cs" />
-    <Compile Include="DATA\Model\ElectricVehicleCharger.cs" />
-    <Compile Include="DATA\Model\SolarPanel.cs" />
+    <Compile Include="Data\Model\Battery.cs" />
+    <Compile Include="Data\Model\Consumer.cs" />
+    <Compile Include="Data\Model\ElectricVehicleCharger.cs" />
+    <Compile Include="Data\Model\SolarPanel.cs" />
     <Compile Include="MenuFunctions.cs" />
     <Compile Include="SHES_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +103,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="DB\SHES_DB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

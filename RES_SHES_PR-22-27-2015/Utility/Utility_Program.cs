@@ -18,8 +18,6 @@ namespace Utility
 
             Utility_Server server = new Utility_Server();
             server.Open();
-
-            // da li je potrebno ovo ? kao kod Timer-a ...
             Thread.Sleep(Constants.WAITING_TIME);
 
             IUniversalTimer proxy = Connect();

@@ -13,10 +13,10 @@ namespace WeatherSimulator
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("WeatherSimulator: Hello world!");
+
             WeatherForecast_Server server = new WeatherForecast_Server();
             server.Open();
-
-            // da li je potrebno ovo ? kao kod Timer-a ...
             Thread.Sleep(Constants.WAITING_TIME);
 
             IUniversalTimer proxy = Connect();

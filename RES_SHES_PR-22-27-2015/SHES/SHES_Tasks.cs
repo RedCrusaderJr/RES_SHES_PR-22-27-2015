@@ -16,10 +16,11 @@ namespace SHES
         public static void BatteryBehavior()
         {
             Double hourOfTheDay;
-            IUniversalTimer proxy = ConnectUniversalTimer();
-
+            
             while (true)
             {
+                IUniversalTimer proxy = ConnectUniversalTimer();
+
                 Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
                 hourOfTheDay = proxy.GetGlobalTimeInHours();
 
@@ -55,25 +56,21 @@ namespace SHES
                     DBManager.S_Instance.UpdateBattery(b);
                 }
 
-                Thread.Sleep(Common.Constants.MINUTE);
+                Thread.Sleep(Constants.MINUTE);
             }
         }
 
-
         public static void MainCalculus()
         {
-            IPowerPrice proxy = ConnectUtility();
-
-            Double currentConsuming;
-            Double currentGenerating;
-            Double electricEnergy;
-            Double price;
-            Double electricEnergyPrice;
-
             while (true)
             {
-                currentConsuming = 0;
-                currentGenerating = 0;
+                IPowerPrice proxy = ConnectUtility();
+
+                Measurement currentMeasurement = new Measurement
+                {
+                    Consumption = 0,
+                    Production = 0,
+                };
 
                 // dobavljanje svih elemenata
 
@@ -89,7 +86,7 @@ namespace SHES
                 {
                     if(b.Mode == EMode.CONSUMING)
                     {
-                        currentConsuming += b.MaxPower;
+                        currentMeasurement.Consumption += b.MaxPower;
                     }
                 }
 
@@ -97,7 +94,7 @@ namespace SHES
                 {
                     if(evc.OnCharger && evc.Mode == EMode.CONSUMING)
                     {
-                        currentConsuming += evc.MaxPower;
+                        currentMeasurement.Consumption += evc.MaxPower;
                     }
                 }
 
@@ -105,7 +102,7 @@ namespace SHES
                 {
                     if(c.IsConsuming)
                     {
-                        currentConsuming += c.Consumption;
+                        currentMeasurement.Consumption += c.Consumption;
                     }
                 }
 
@@ -117,7 +114,7 @@ namespace SHES
                 {
                     if(b.Mode == EMode.GENERATING)
                     {
-                        currentGenerating += b.MaxPower;
+                        currentMeasurement.Production += b.MaxPower;
                     }
                 }
 
@@ -125,31 +122,29 @@ namespace SHES
                 {
                     if(evc.Mode == EMode.GENERATING)
                     {
-                        currentGenerating += evc.MaxPower;
+                        currentMeasurement.Production += evc.MaxPower;
                     }
                 }
 
                 foreach(SolarPanel sp in sps.Values)
                 {
-                    currentGenerating += sp.CalculatePower();
+                    currentMeasurement.Production += sp.CalculatePower();
                 }
 
+                Tuple<Tuple<Int32,Double>, Double> result = proxy.GetPowerPriceWithDate();
+                currentMeasurement.Day = result.Item1.Item1;
+                currentMeasurement.HourOfTheDay = result.Item1.Item2;
+                currentMeasurement.PowerPrice = result.Item2;
 
-                electricEnergy = currentGenerating - currentConsuming;
-
-                price = proxy.GetPowerPrice();
-                electricEnergyPrice = electricEnergy * price;
-
-
-                Console.WriteLine($"ElectricEnergy: {electricEnergy}  Price[1 kWh]: {price}");
-                Console.WriteLine($"ElectricEnergy price: {electricEnergyPrice}");
+                Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.Balance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
+                Console.WriteLine($"Balans price: {currentMeasurement.BalancePrice}");
                 Console.WriteLine();
 
+                DBManager.S_Instance.AddMeasurement(currentMeasurement);
 
-                Thread.Sleep(Common.Constants.MINUTE);
+                Thread.Sleep(Constants.MINUTE);
             }
         }
-
 
         static IUniversalTimer ConnectUniversalTimer()
         {
@@ -162,7 +157,7 @@ namespace SHES
         {
             NetTcpBinding binding = new NetTcpBinding();
 
-            return new ChannelFactory<IPowerPrice>(binding, new EndpointAddress("net.tcp://localhost:6001/Utility")).CreateChannel();
+            return new ChannelFactory<IPowerPrice>(binding, new EndpointAddress("net.tcp://localhost:6002/Utility")).CreateChannel();
         }
     }
 }
