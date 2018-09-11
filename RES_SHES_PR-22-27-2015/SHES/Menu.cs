@@ -159,8 +159,6 @@ namespace SHES
             Console.WriteLine("Solar panel MaxPower: ");
             sp.MaxPower = Double.Parse(Console.ReadLine());
 
-            sp.IsGenerating = false;
-
 
             if (DBManager.S_Instance.AddSolarPanel(sp))
             {
@@ -308,7 +306,7 @@ namespace SHES
         {
             Console.WriteLine("List of solar panels => ");
             Dictionary<string, SolarPanel> solarPanels = DBManager.S_Instance.GetAllSolarPanels();
-            solarPanels.Values.ToList().ForEach(s => Console.WriteLine($"ID: {s.SolarPanelID}  MaxPower: {s.MaxPower}  Generating: {s.IsGenerating}"));
+            solarPanels.Values.ToList().ForEach(s => Console.WriteLine($"ID: {s.SolarPanelID}  MaxPower: {s.MaxPower}"));
 
             Console.WriteLine("Solar panel ID: ");
             string id = Console.ReadLine();

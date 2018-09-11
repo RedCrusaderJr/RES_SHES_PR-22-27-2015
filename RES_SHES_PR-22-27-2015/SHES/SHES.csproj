@@ -76,6 +76,7 @@
     <Compile Include="MenuFunctions.cs" />
     <Compile Include="SHES_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SHES_Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

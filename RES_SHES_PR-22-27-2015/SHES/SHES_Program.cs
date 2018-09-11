@@ -29,12 +29,15 @@ namespace SHES
 
             /*
             TestData();
-            */        
+            */
+
+
+            // StartAllTasks();
 
             Menu myMenu = new Menu();
-
-
             myMenu.Display();
+
+
 
             // DUNJA
             // task u kojem se racuna proizvodnja i potrosnja
@@ -61,6 +64,14 @@ namespace SHES
             Process.Start($@"{absolutePath}Utility\bin\Debug\Utility");
         }
 
+
+        private static void StartAllTasks()
+        {
+            Task task_BatteryBehavior = Task.Run(() => SHES_Tasks.BatteryBehavior());
+            Task task_MainCalculus = Task.Run(() => SHES_Tasks.MainCalculus());
+        }
+
+
         /*
         static void TestData()
         {
@@ -83,6 +94,6 @@ namespace SHES
                 consumer = new Consumer(con);
             }
         }
-        */    
+        */
     }
 }

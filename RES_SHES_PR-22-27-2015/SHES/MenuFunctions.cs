@@ -17,6 +17,7 @@ namespace SHES
             if (evc.OnCharger)
             {
                 evc.OnCharger = false;
+                DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
             }
 
             Task.Run(() => Driving(evc, drinigHours));
@@ -55,22 +56,26 @@ namespace SHES
 
         public static void ConnectEVC(ElectricVehicleCharger evc)
         {
-
+            evc.OnCharger = true;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
         }
 
         public static void DisconnectEVC(ElectricVehicleCharger evc)
         {
-
+            evc.OnCharger = false;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
         }
 
         public static void StartCharging(ElectricVehicleCharger evc)
         {
-
+            evc.Mode = EMode.CONSUMING;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
         }
 
         public static void StopCharging(ElectricVehicleCharger evc)
         {
-
+            evc.Mode = EMode.NONE;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
         }
     }
 }

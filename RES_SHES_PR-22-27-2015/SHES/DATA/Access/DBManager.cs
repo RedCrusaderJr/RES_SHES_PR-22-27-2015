@@ -164,7 +164,6 @@ namespace SHES.Data.Access
                     dbContext.SolarPanels.Attach(foundSolarPanel);
 
                     foundSolarPanel.MaxPower = solarPanel.MaxPower;
-                    foundSolarPanel.IsGenerating = solarPanel.IsGenerating;
 
                     dbContext.SaveChanges();
 

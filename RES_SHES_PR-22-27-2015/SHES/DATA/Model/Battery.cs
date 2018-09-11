@@ -34,7 +34,7 @@ namespace SHES.Data.Model
             Mode = b.Mode;
         }
 
-        public void Charging()
+        public void Consuming()
         {
             if(CurrentCapacity < MaxCapacity)
             {
@@ -47,7 +47,7 @@ namespace SHES.Data.Model
             }
         }
 
-        public void Using()
+        public void Generating()
         {
             if(CurrentCapacity > 0)
             {
