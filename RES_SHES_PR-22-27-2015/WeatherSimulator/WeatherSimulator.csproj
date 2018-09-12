@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WeatherForecastManual_Provide.cs" />
     <Compile Include="WeatherForecast_Provider.cs" />
+    <Compile Include="WeatherForecastManual_Server.cs" />
     <Compile Include="WeatherForecast_Server.cs" />
     <Compile Include="WeatherSimulator_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

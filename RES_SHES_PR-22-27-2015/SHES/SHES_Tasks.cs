@@ -58,7 +58,7 @@ namespace SHES
             }
         }
 
-        public static void MainCalculus()
+        public static void CollectingMeasurements()
         {
             while (true)
             {

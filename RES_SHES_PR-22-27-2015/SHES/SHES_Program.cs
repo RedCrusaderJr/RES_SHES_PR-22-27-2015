@@ -43,13 +43,18 @@ namespace SHES
 
         static void AppStarter()
         {
-            String absolutePath = Path.GetFullPath(@"..\..\..\");
+            Console.WriteLine("Choose method for WeatherSimulator: ");
+            Console.WriteLine("1) Auto");
+            Console.WriteLine("2) Manual");
+            Int32.TryParse(Console.ReadLine(), out int answer);
 
+            String absolutePath = Path.GetFullPath(@"..\..\..\");
+            
             //UniversalTimer
             Process.Start($@"{absolutePath}UniversalTimer\bin\Debug\UniversalTimer");
 
             //WeatherSimulator
-            Process.Start($@"{absolutePath}WeatherSimulator\bin\Debug\WeatherSimulator");
+            Process.Start($@"{absolutePath}WeatherSimulator\bin\Debug\WeatherSimulator", answer.ToString());
 
             //Utility
             Process.Start($@"{absolutePath}Utility\bin\Debug\Utility");
@@ -59,7 +64,7 @@ namespace SHES
         private static void StartAllTasks()
         {
             Task.Run(() => SHES_Tasks.BatteryBehavior());
-            Task.Run(() => SHES_Tasks.MainCalculus());
+            Task.Run(() => SHES_Tasks.CollectingMeasurements());
         }
 
 

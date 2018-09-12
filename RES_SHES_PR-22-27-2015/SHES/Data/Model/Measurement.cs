@@ -12,7 +12,7 @@ namespace SHES.Data.Model
         private double _hourOfTheDay;
         private double _consumption;
         private double _production;
-        private double _powerPrice;       
+        private double _powerPrice;
 
         [Key]
         public string MesurementID { get; private set; }

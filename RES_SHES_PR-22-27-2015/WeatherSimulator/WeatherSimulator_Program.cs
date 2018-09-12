@@ -16,6 +16,45 @@ namespace WeatherSimulator
             Console.WriteLine("WeatherSimulator: Hello world!");
 
             WeatherForecast_Server server = new WeatherForecast_Server();
+            WeatherForecastManual_Server serverManual = new WeatherForecastManual_Server();
+
+            Int32.TryParse(args[0], out int answer);
+
+            if (answer == 1)
+            {
+                Automatic(server);
+            }
+            else if (answer == 2)
+            {
+                Manual(serverManual);
+            }
+        }
+
+        private static void Manual(WeatherForecastManual_Server serverManual)
+        {
+            WeatherForecastManual_Server.currentSunlight = 0;
+
+            serverManual.Open();
+            Thread.Sleep(Constants.WAITING_TIME);
+
+            int answer = 0;
+            while (true)
+            {
+                Console.Write("Set sunlight [%]: ");
+                Int32.TryParse(Console.ReadLine(), out answer);
+
+                if (answer != -1)
+                {
+                    WeatherForecast_Server.currentSunlight = answer;
+                }
+            }
+        }
+
+        static void Automatic(WeatherForecast_Server server)
+        {
+
+            //probaj sa currentSunlight
+
             server.Open();
             Thread.Sleep(Constants.WAITING_TIME);
 
@@ -24,7 +63,6 @@ namespace WeatherSimulator
 
             while (true)
             {
-
                 double hourOfTheDay = UniversalClock.S_Instance.TimeHours;
 
                 if (hourOfTheDay >= 0 && hourOfTheDay < 5.5)
@@ -65,8 +103,7 @@ namespace WeatherSimulator
                 }
 
                 Console.WriteLine($"Sunlight(%): {sunlightPercentage}   time[{hourOfTheDay}]");
-                Thread.Sleep(500);
-
+                Thread.Sleep(Constants.MILISECONDS_IN_SECOND);
             }
         }
     }
