@@ -30,6 +30,7 @@ namespace SHES
             /*
             TestData();
             */
+            DBManager.S_Instance.RemoveAllMeasurements();
 
             Thread.Sleep(Constants.WAITING_TIME);
             StartAllTasks();
@@ -37,17 +38,7 @@ namespace SHES
             Menu myMenu = new Menu();
             myMenu.Display();
 
-
-
-            // DUNJA
-            // task u kojem se racuna proizvodnja i potrosnja
-        }
-
-        static IUniversalTimer Connect()
-        {
-            NetTcpBinding binding = new NetTcpBinding();
-
-            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
+            
         }
 
         static void AppStarter()

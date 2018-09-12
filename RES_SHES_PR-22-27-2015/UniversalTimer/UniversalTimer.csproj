@@ -45,8 +45,6 @@
   <ItemGroup>
     <Compile Include="UniversalTimer_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UniversalTimer_Provider.cs" />
-    <Compile Include="UniversalTimer_Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -407,6 +407,22 @@ namespace SHES.Data.Access
                 return false;
             }
         }
+
+        public bool RemoveAllMeasurements()
+        {
+            using (SHES_DBContext dbContext = new SHES_DBContext())
+            {
+                bool found = dbContext.Measurements.Any();
+                if (found)
+                {
+                    dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [Measurements]");
+
+                    return true;
+                }
+
+                return false;
+            }
+        }
         #endregion
     }
 }

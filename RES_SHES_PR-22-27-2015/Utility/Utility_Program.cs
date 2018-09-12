@@ -20,7 +20,6 @@ namespace Utility
             server.Open();
             Thread.Sleep(Constants.WAITING_TIME);
 
-            IUniversalTimer proxy = Connect();
             double price = 0;
             double hourOfTheDay;
 
@@ -30,20 +29,13 @@ namespace Utility
             
             while (true)
             {
-                hourOfTheDay = proxy.GetGlobalTimeInHours();
+                hourOfTheDay = UniversalClock.S_Instance.TimeHours;
                 price = (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0) ? lowPrice : highPrice;
                 
                 Console.WriteLine($"Price of kwh ($/kwh): {Math.Round(price, 5)}   time[{hourOfTheDay}]");
                 Thread.Sleep(500);
             }
             
-        }
-
-        static IUniversalTimer Connect()
-        {
-            NetTcpBinding binding = new NetTcpBinding();
-
-            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
         }
     }
 }

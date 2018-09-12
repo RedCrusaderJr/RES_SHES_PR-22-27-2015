@@ -16,13 +16,11 @@ namespace SHES
         public static void BatteryBehavior()
         {
             Double hourOfTheDay;
-            
-            while (true)
-            {
-                IUniversalTimer proxy = ConnectUniversalTimer();
 
+            while (true)
+            { 
                 Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
-                hourOfTheDay = proxy.GetGlobalTimeInHours();
+                hourOfTheDay = UniversalClock.S_Instance.TimeHours;
 
                 if(hourOfTheDay >= 3 && hourOfTheDay <= 6)
                 {
@@ -56,7 +54,7 @@ namespace SHES
                     DBManager.S_Instance.UpdateBattery(b);
                 }
 
-                Thread.Sleep(Constants.MINUTE);
+                Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
         }
 
@@ -131,10 +129,9 @@ namespace SHES
                     currentMeasurement.Production += sp.CalculatePower();
                 }
 
-                Tuple<Tuple<Int32,Double>, Double> result = proxy.GetPowerPriceWithDate();
-                currentMeasurement.Day = result.Item1.Item1;
-                currentMeasurement.HourOfTheDay = result.Item1.Item2;
-                currentMeasurement.PowerPrice = result.Item2;
+                currentMeasurement.PowerPrice = proxy.GetPowerPrice();
+                currentMeasurement.Day = UniversalClock.S_Instance.TimeDay;
+                currentMeasurement.HourOfTheDay = UniversalClock.S_Instance.TimeHours;                
 
                 Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.Balance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
                 Console.WriteLine($"Balans price: {currentMeasurement.BalancePrice}");
@@ -142,15 +139,8 @@ namespace SHES
 
                 DBManager.S_Instance.AddMeasurement(currentMeasurement);
 
-                Thread.Sleep(Constants.MINUTE);
+                Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
-        }
-
-        static IUniversalTimer ConnectUniversalTimer()
-        {
-            NetTcpBinding binding = new NetTcpBinding();
-
-            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
         }
 
         static IPowerPrice ConnectUtility()

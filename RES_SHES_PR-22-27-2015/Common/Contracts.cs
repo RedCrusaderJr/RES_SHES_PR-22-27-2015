@@ -8,23 +8,6 @@ using System.ServiceModel;
 namespace Common
 {
     [ServiceContract]
-    public interface IUniversalTimer
-    {
-        [OperationContract]
-        void StartTimer();
-        [OperationContract]
-        Int32 GetGlobalTimeInSeconds();
-        [OperationContract]
-        Int32 GetGlobalTimeInMinutes();
-        [OperationContract]
-        Double GetGlobalTimeInHours();
-        [OperationContract]
-        Int32 GetGlobalTimeDay();
-        [OperationContract]
-        Tuple<Int32, Double> GetGlobalTimeInDayAndHour();
-    }
-
-    [ServiceContract]
     public interface IWeatherForecast
     {
         [OperationContract]

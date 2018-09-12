@@ -15,26 +15,15 @@ namespace UniversalTimer
         {
             Console.WriteLine("UniversalTimer: Hello world!");
 
-            UniversalTimer_Server server = new UniversalTimer_Server();
-            server.Open();
-            Thread.Sleep(Constants.WAITING_TIME);
-
-            while(true)
+            while (true)
             {
-                IUniversalTimer proxy = Connect();
-                Console.WriteLine($"Global Time: Hours format[{proxy.GetGlobalTimeInHours()}]     " +
-                                  $"Minutes format[{proxy.GetGlobalTimeInMinutes()}]     " +
-                                  $"Seconds format[{proxy.GetGlobalTimeInSeconds()}]");
+                Console.WriteLine($"Global Time: Hours format[{UniversalClock.S_Instance.TimeHours}]     " +
+                                  $"Minutes format[{UniversalClock.S_Instance.TimeMinutes}]     " +
+                                  $"Seconds format[{UniversalClock.S_Instance.TimeSeconds}]     " +
+                                  $"Day format[{UniversalClock.S_Instance.TimeDay}]");
 
-                Thread.Sleep(Constants.SECOND);
-            }        
-        }
-
-        static IUniversalTimer Connect()
-        {
-            NetTcpBinding binding = new NetTcpBinding();
-
-            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
+                Thread.Sleep(Constants.MILISECONDS_IN_SECOND);
+            }
         }
     }
 }

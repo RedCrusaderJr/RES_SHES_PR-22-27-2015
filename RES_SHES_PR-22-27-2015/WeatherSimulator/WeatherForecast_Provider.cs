@@ -13,12 +13,11 @@ namespace WeatherSimulator
     {
         public int GetSunlightPercentage()
         {
-            IUniversalTimer proxy = Connect();
             int sunlightPercentage = 0;
             Random random = new Random();
 
 
-            double hourOfTheDay = proxy.GetGlobalTimeInHours();
+            double hourOfTheDay = UniversalClock.S_Instance.TimeHours;
 
             if (hourOfTheDay >= 0 && hourOfTheDay < 5.5)
             {
@@ -62,13 +61,6 @@ namespace WeatherSimulator
             }
 
             return sunlightPercentage;
-        }
-
-        private IUniversalTimer Connect()
-        {
-            NetTcpBinding binding = new NetTcpBinding();
-
-            return new ChannelFactory<IUniversalTimer>(binding, new EndpointAddress("net.tcp://localhost:6000/UniversalTimer")).CreateChannel();
         }
     }
 }

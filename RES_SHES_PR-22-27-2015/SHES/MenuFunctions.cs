@@ -25,16 +25,16 @@ namespace SHES
 
         private static void Driving(ElectricVehicleCharger evc, double drivingHours)
         {
-            double drivingMinutes = drivingHours * 60;
+            double drivingMinutes = drivingHours * Constants.MINUTES_IN_HOUR;
 
             do
             {
                 DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
-                double capacityChange = evc.CurrentCapacity * 60 - 1;
-                evc.CurrentCapacity = Math.Round(capacityChange / 60, 2);
+                double capacityChange = evc.CurrentCapacity * Constants.MINUTES_IN_HOUR - 1;
+                evc.CurrentCapacity = Math.Round(capacityChange / Constants.MINUTES_IN_HOUR, 2);
                 DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
                 drivingMinutes--;
-                Thread.Sleep(Constants.MINUTE);
+                Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
             while (drivingMinutes > 0);
         }
