@@ -8,31 +8,31 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
-    class Utility_Server
+    public class Utility_Server
     {
-        private ServiceHost _serviceHost;
-        private String _hostAddress = "net.tcp://localhost:6002/Utility";
+        public ServiceHost ServiceHost { get; }
+        public String HostAddress { get; } = "net.tcp://localhost:6002/Utility";
 
         public Utility_Server()
         {
             NetTcpBinding binding = new NetTcpBinding();
-            _serviceHost = new ServiceHost(typeof(Utility_Provider));
+            ServiceHost = new ServiceHost(typeof(Utility_Provider));
 
-            _serviceHost.AddServiceEndpoint(typeof(IPowerPrice), binding, _hostAddress);
+            ServiceHost.AddServiceEndpoint(typeof(IPowerPrice), binding, HostAddress);
 
             Console.WriteLine("Server UTILITY initialized and ready to be opened.");
         }
 
-        public void Open()
+        public void Open() 
         {
-            _serviceHost.Open();
+            ServiceHost.Open();
 
             Console.WriteLine("Server UTILITY opened and ready and waiting for requests.");
         }
 
         public void Close()
         {
-            _serviceHost.Close();
+            ServiceHost.Close();
 
             Console.WriteLine("Server UTILITY closed.");
         }
