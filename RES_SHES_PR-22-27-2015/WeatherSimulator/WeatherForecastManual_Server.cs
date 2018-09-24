@@ -18,7 +18,7 @@ namespace WeatherSimulator
         public WeatherForecastManual_Server()
         {
             NetTcpBinding binding = new NetTcpBinding();
-            _serviceHost = new ServiceHost(typeof(WeatherForecastManual_Provide));
+            _serviceHost = new ServiceHost(typeof(WeatherForecastManual_Provider));
 
             _serviceHost.AddServiceEndpoint(typeof(IWeatherForecast), binding, _hostAddress);
 

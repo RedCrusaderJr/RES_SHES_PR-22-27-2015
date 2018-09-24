@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalTimer", "UniversalTimer\UniversalTimer.csproj", "{1EB482EC-66AA-4A99-AE86-94329E2327FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSimulatorTest", "WeatherSimulatorTest\WeatherSimulatorTest.csproj", "{4FC7016C-31A6-4D0A-8861-6C78570364E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHESTest", "SHESTest\SHESTest.csproj", "{FCE3C057-6A8C-49F5-9100-B907ACFA26D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EB482EC-66AA-4A99-AE86-94329E2327FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC7016C-31A6-4D0A-8861-6C78570364E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC7016C-31A6-4D0A-8861-6C78570364E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC7016C-31A6-4D0A-8861-6C78570364E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC7016C-31A6-4D0A-8861-6C78570364E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCE3C057-6A8C-49F5-9100-B907ACFA26D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE3C057-6A8C-49F5-9100-B907ACFA26D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE3C057-6A8C-49F5-9100-B907ACFA26D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE3C057-6A8C-49F5-9100-B907ACFA26D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
