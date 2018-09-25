@@ -16,7 +16,7 @@ namespace Utility
         {
             Console.WriteLine("Utility: Hello world!");
 
-            Utility_Server server = new Utility_Server();
+            PowerPrice_Server server = new PowerPrice_Server();
             server.Open();
             Thread.Sleep(Constants.WAITING_TIME);
 

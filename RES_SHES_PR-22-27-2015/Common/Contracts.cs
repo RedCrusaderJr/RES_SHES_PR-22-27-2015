@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using Common.Model;
 
 namespace Common
 {
@@ -22,5 +23,22 @@ namespace Common
 
         [OperationContract]
         Tuple<Tuple<Int32, Double>, Double> GetPowerPriceWithDate();
+    }
+
+    [ServiceContract]
+    public interface IUniversalClock
+    {
+        [OperationContract]
+        Int32 GetTimeInMinutes();
+
+        [OperationContract]
+        Int32 GetDay();
+    }
+
+    [ServiceContract]
+    public interface ISHES
+    {
+        [OperationContract]
+        Dictionary<Double, IMeasurement> GetInfoForDate(String date);
     }
 }

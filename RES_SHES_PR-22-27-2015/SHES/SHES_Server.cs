@@ -1,21 +1,19 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using System.ServiceModel;
-using Common;
 
-namespace WeatherSimulator
+namespace SHES
 {
-    class WeatherForecast_Server
+    class SHES_Server
     {
         private ServiceHost _serviceHost;
-        private String _hostAddress = "net.tcp://localhost:6001/WeathetForecast";
+        private String _hostAddress = "net.tcp://localhost:6005/SHES";
 
-        internal static int currentSunlight;
-
-        public WeatherForecast_Server()
+        public SHES_Server()
         {
             NetTcpBinding binding = new NetTcpBinding()
             {
@@ -24,10 +22,9 @@ namespace WeatherSimulator
                 ReceiveTimeout = new TimeSpan(0, 10, 0),
                 SendTimeout = new TimeSpan(0, 10, 0),
             };
+            _serviceHost = new ServiceHost(typeof(SHES_Provider));
 
-            _serviceHost = new ServiceHost(typeof(WeatherForecast_Provider));
-
-            _serviceHost.AddServiceEndpoint(typeof(IWeatherForecast), binding, _hostAddress);
+            _serviceHost.AddServiceEndpoint(typeof(ISHES), binding, _hostAddress);
 
             Console.WriteLine("Server WEATHER initialized and ready to be opened.");
 
@@ -37,14 +34,14 @@ namespace WeatherSimulator
         {
             _serviceHost.Open();
 
-            Console.WriteLine("Server WEATHER opened and ready and waiting for requests.");
+            Console.WriteLine("Server SHES opened and ready and waiting for requests.");
         }
 
         public void Close()
         {
             _serviceHost.Close();
 
-            Console.WriteLine("Server WEATHER closed.");
+            Console.WriteLine("Server SHES closed.");
         }
     }
 }

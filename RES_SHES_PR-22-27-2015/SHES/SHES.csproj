@@ -68,15 +68,17 @@
     <Compile Include="Data\Access\Configuration.cs" />
     <Compile Include="Data\Access\DBManager.cs" />
     <Compile Include="Data\Access\SHES_DBContext.cs" />
-    <Compile Include="Data\Model\Measurement.cs" />
-    <Compile Include="Menu.cs" />
     <Compile Include="Data\Model\Battery.cs" />
     <Compile Include="Data\Model\Consumer.cs" />
     <Compile Include="Data\Model\ElectricVehicleCharger.cs" />
+    <Compile Include="Data\Model\Measurement.cs" />
     <Compile Include="Data\Model\SolarPanel.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="MenuFunctions.cs" />
     <Compile Include="SHES_Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SHES_Provider.cs" />
+    <Compile Include="SHES_Server.cs" />
     <Compile Include="SHES_Tasks.cs" />
   </ItemGroup>
   <ItemGroup>

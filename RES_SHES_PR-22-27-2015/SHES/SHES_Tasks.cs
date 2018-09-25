@@ -66,8 +66,10 @@ namespace SHES
 
                 Measurement currentMeasurement = new Measurement
                 {
-                    Consumption = 0,
-                    Production = 0,
+                    BatteryConsumption = 0,
+                    BatteryProduction = 0,
+                    ConsumersConsumption = 0,
+                    SolarPanelProduction = 0,
                 };
 
                 // dobavljanje svih elemenata
@@ -84,7 +86,7 @@ namespace SHES
                 {
                     if(b.Mode == EMode.CONSUMING)
                     {
-                        currentMeasurement.Consumption += b.MaxPower;
+                        currentMeasurement.BatteryConsumption += b.MaxPower;
                     }
                 }
 
@@ -92,7 +94,7 @@ namespace SHES
                 {
                     if(evc.OnCharger && evc.Mode == EMode.CONSUMING)
                     {
-                        currentMeasurement.Consumption += evc.MaxPower;
+                        currentMeasurement.BatteryConsumption += evc.MaxPower;
                     }
                 }
 
@@ -100,7 +102,7 @@ namespace SHES
                 {
                     if(c.IsConsuming)
                     {
-                        currentMeasurement.Consumption += c.Consumption;
+                        currentMeasurement.ConsumersConsumption += c.Consumption;
                     }
                 }
 
@@ -112,7 +114,7 @@ namespace SHES
                 {
                     if(b.Mode == EMode.GENERATING)
                     {
-                        currentMeasurement.Production += b.MaxPower;
+                        currentMeasurement.BatteryProduction += b.MaxPower;
                     }
                 }
 
@@ -120,21 +122,21 @@ namespace SHES
                 {
                     if(evc.Mode == EMode.GENERATING)
                     {
-                        currentMeasurement.Production += evc.MaxPower;
+                        currentMeasurement.BatteryProduction += evc.MaxPower;
                     }
                 }
 
                 foreach(SolarPanel sp in sps.Values)
                 {
-                    currentMeasurement.Production += sp.CalculatePower();
+                    currentMeasurement.SolarPanelProduction += sp.CurrentPower;
                 }
 
                 currentMeasurement.PowerPrice = proxy.GetPowerPrice();
                 currentMeasurement.Day = UniversalClock.S_Instance.TimeDay;
                 currentMeasurement.HourOfTheDay = UniversalClock.S_Instance.TimeHours;                
 
-                Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.Balance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
-                Console.WriteLine($"Balans price: {currentMeasurement.BalancePrice}");
+                Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.TotalBalance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
+                Console.WriteLine($"Balans price: {currentMeasurement.TotalBalancePrice}");
                 Console.WriteLine();
 
                 DBManager.S_Instance.AddMeasurement(currentMeasurement);
@@ -147,7 +149,7 @@ namespace SHES
         {
             NetTcpBinding binding = new NetTcpBinding();
 
-            return new ChannelFactory<IPowerPrice>(binding, new EndpointAddress("net.tcp://localhost:6002/Utility")).CreateChannel();
+            return new ChannelFactory<IPowerPrice>(binding, new EndpointAddress("net.tcp://localhost:6002/PowerPrice")).CreateChannel();
         }
     }
 }

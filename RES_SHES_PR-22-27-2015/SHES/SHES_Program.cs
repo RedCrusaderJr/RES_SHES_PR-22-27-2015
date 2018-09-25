@@ -1,6 +1,5 @@
 ﻿using Common;
 using SHES.Data.Access;
-using SHES.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,6 +30,9 @@ namespace SHES
             TestData();
             */
             DBManager.S_Instance.RemoveAllMeasurements();
+
+            SHES_Server server = new SHES_Server();
+            server.Open();
 
             Thread.Sleep(Constants.WAITING_TIME);
             StartAllTasks();

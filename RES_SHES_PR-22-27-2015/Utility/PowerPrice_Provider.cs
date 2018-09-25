@@ -9,7 +9,7 @@ using Common;
 
 namespace Utility
 {
-    public class Utility_Provider : IPowerPrice
+    public class PowerPrice_Provider : IPowerPrice
     {
         public double GetPowerPrice()
         {

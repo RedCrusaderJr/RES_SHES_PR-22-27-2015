@@ -11,12 +11,12 @@ using Utility;
 namespace UtilityTest
 {
     [TestFixture]
-    class Utility_ServerTest
+    class PowerPrice_ServerTest
     {
         [Test]
         public void Utility_ServerConstructorGoodExample()
         {
-            Utility_Server server = new Utility.Utility_Server();
+            PowerPrice_Server server = new Utility.PowerPrice_Server();
 
             Assert.AreEqual(server.ServiceHost.State, CommunicationState.Created);
             Assert.AreEqual(server.ServiceHost.Extensions.Count, 1);
@@ -25,14 +25,14 @@ namespace UtilityTest
         [Test]
         public void Utility_ServerOpenServiceGoodExample()
         {
-            Utility_Server server = new Utility_Server();
+            PowerPrice_Server server = new PowerPrice_Server();
             Assert.DoesNotThrow(() => server.Open());
         }
 
         [Test]
         public void Utility_ServerCloseServiceGoodExample()
         {
-            Utility_Server server = new Utility_Server();
+            PowerPrice_Server server = new PowerPrice_Server();
             server.Open();
 
             Assert.DoesNotThrow(() => server.Close());

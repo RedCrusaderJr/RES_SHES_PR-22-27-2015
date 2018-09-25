@@ -61,8 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility_ProviderTest.cs" />
-    <Compile Include="Utility_ServerTest.cs" />
+    <Compile Include="PowerPrice_ProviderTest.cs" />
+    <Compile Include="PowerPrice_ServerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

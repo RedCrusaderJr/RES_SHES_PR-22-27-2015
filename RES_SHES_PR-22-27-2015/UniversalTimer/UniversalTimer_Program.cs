@@ -15,6 +15,9 @@ namespace UniversalTimer
         {
             Console.WriteLine("UniversalTimer: Hello world!");
 
+            UniversalClock_Server server = new UniversalClock_Server();
+            server.Open();
+
             while (true)
             {
                 Console.WriteLine($"Global Time: Hours format[{UniversalClock.S_Instance.TimeHours}]     " +

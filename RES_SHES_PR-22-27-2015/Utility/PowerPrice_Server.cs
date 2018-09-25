@@ -8,15 +8,21 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
-    public class Utility_Server
+    public class PowerPrice_Server
     {
         public ServiceHost ServiceHost { get; }
-        public String HostAddress { get; } = "net.tcp://localhost:6002/Utility";
+        public String HostAddress { get; } = "net.tcp://localhost:6002/PowerPrice";
 
-        public Utility_Server()
+        public PowerPrice_Server()
         {
-            NetTcpBinding binding = new NetTcpBinding();
-            ServiceHost = new ServiceHost(typeof(Utility_Provider));
+            NetTcpBinding binding = new NetTcpBinding()
+            {
+                CloseTimeout = new TimeSpan(0, 10, 0),
+                OpenTimeout = new TimeSpan(0, 10, 0),
+                ReceiveTimeout = new TimeSpan(0, 10, 0),
+                SendTimeout = new TimeSpan(0, 10, 0),
+            };
+            ServiceHost = new ServiceHost(typeof(PowerPrice_Provider));
 
             ServiceHost.AddServiceEndpoint(typeof(IPowerPrice), binding, HostAddress);
 

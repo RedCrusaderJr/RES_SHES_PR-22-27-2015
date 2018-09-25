@@ -11,12 +11,12 @@ using Utility;
 namespace UtilityTest
 {
     [TestFixture]
-    public class Utility_ProviderTest
+    public class PowerPrice_ProviderTest
     {
         [Test]
         public void GetPowerPriceGoodExpample()
         {
-            Utility_Provider up = new Utility_Provider();
+            PowerPrice_Provider up = new PowerPrice_Provider();
             if(UniversalClock.S_Instance.TimeHours >= 1.0 && UniversalClock.S_Instance.TimeHours < 7.0)
             {
                 Assert.AreEqual(up.GetPowerPrice(), Math.Round(2.372 / 101.94, 3));
@@ -30,7 +30,7 @@ namespace UtilityTest
         [Test]
         public void GetPowerPriceWithDateGoodExample()
         {
-            Utility_Provider up = new Utility_Provider();
+            PowerPrice_Provider up = new PowerPrice_Provider();
             if (UniversalClock.S_Instance.TimeHours >= 1.0 && UniversalClock.S_Instance.TimeHours < 7.0)
             {
                 Assert.AreEqual(up.GetPowerPrice(), new Tuple<Tuple<int, double>, double>(

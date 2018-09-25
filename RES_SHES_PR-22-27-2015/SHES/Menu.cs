@@ -1,5 +1,5 @@
-﻿using SHES.Data.Access;
-using SHES.Data.Model;
+﻿using SHES.Data.Model;
+using SHES.Data.Access;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -158,7 +158,7 @@ namespace SHES
 
             Console.WriteLine("Solar panel MaxPower: ");
             sp.MaxPower = Double.Parse(Console.ReadLine());
-
+            sp.StartTask();
 
             if (DBManager.S_Instance.AddSolarPanel(sp))
             {

@@ -1,14 +1,15 @@
-﻿using SHES.Data.Model;
+﻿using Common.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SHES.Data.Model;
 
 namespace SHES.Data.Access
 {
-    class DBManager
+    public class DBManager
     {
 
         #region Instance
@@ -231,6 +232,7 @@ namespace SHES.Data.Access
             using (SHES_DBContext dbContext = new SHES_DBContext())
             {
                 Dictionary<string, Battery> batteries = dbContext.Batteries.ToDictionary(b => b.BatteryID, b => b);
+
                 if (batteries == null)
                 {
                     batteries = new Dictionary<string, Battery>();
@@ -306,28 +308,28 @@ namespace SHES.Data.Access
             }
         }
 
-        public Dictionary<Double, Measurement> GetAllMeasurementsBySpecificDay(Int32 day)
+        public Dictionary<Double, IMeasurement> GetAllMeasurementsBySpecificDay(Int32 day)
         {
             using (SHES_DBContext dbContext = new SHES_DBContext())
             {
-                Dictionary<Double, Measurement> measurements = dbContext.Measurements.Where(m => m.Day == day).ToDictionary(m => m.HourOfTheDay, m => m);
+                Dictionary<Double, IMeasurement> measurements = dbContext.Measurements.Where(m => m.Day == day).ToDictionary(m => m.HourOfTheDay, m => (IMeasurement)m);
                 if (measurements == null)
                 {
-                    measurements = new Dictionary<Double, Measurement>();
+                    measurements = new Dictionary<Double, IMeasurement>();
                 }
 
                 return measurements;
             }
         }
 
-        public Dictionary<Int32, Dictionary<Double,Measurement>> GetAllMeasurements()
+        public Dictionary<Int32, Dictionary<Double, IMeasurement>> GetAllMeasurements()
         {
             using (SHES_DBContext dbContext = new SHES_DBContext())
             {
-                Dictionary<Int32, Dictionary<Double, Measurement>> measurements = dbContext.Measurements.ToDictionary(m => m.Day, m => GetAllMeasurementsBySpecificDay(m.Day));
+                Dictionary<Int32, Dictionary<Double, IMeasurement>> measurements = dbContext.Measurements.ToDictionary(m => m.Day, m => GetAllMeasurementsBySpecificDay(m.Day));
                 if (measurements == null)
                 {
-                    measurements = new Dictionary<Int32, Dictionary<Double, Measurement>>();
+                    measurements = new Dictionary<Int32, Dictionary<Double, IMeasurement>>();
                 }
 
                 return measurements;
