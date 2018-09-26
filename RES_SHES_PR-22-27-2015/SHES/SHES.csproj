@@ -106,6 +106,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="DB\SHES_DB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

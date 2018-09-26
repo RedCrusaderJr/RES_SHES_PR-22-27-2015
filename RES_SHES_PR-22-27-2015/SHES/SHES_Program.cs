@@ -60,6 +60,9 @@ namespace SHES
 
             //Utility
             Process.Start($@"{absolutePath}Utility\bin\Debug\Utility");
+
+            //WPF
+            Process.Start($@"{absolutePath}SHES_Graphics\bin\Debug\SHES_Graphics");
         }
 
 

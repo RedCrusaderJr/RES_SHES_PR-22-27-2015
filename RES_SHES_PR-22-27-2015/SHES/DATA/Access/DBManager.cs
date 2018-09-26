@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SHES.Data.Model;
+using System.Data.Entity;
 
 namespace SHES.Data.Access
 {
@@ -312,7 +313,7 @@ namespace SHES.Data.Access
         {
             using (SHES_DBContext dbContext = new SHES_DBContext())
             {
-                Dictionary<Double, IMeasurement> measurements = dbContext.Measurements.Where(m => m.Day == day).ToDictionary(m => m.HourOfTheDay, m => (IMeasurement)m);
+                Dictionary<Double, IMeasurement> measurements = UniqueDictionaryKey(dbContext.Measurements, day);
                 if (measurements == null)
                 {
                     measurements = new Dictionary<Double, IMeasurement>();
@@ -334,6 +335,22 @@ namespace SHES.Data.Access
 
                 return measurements;
             }
+        }
+
+        private Dictionary<Double, IMeasurement> UniqueDictionaryKey(DbSet<Measurement> measurements, Int32 day)
+        {
+            Dictionary<Double, IMeasurement> measurementDictionary = new Dictionary<Double, IMeasurement>();
+            var measurementsForDay = measurements.Where(m => m.Day == day);
+
+            foreach (var foo in measurementsForDay)
+            {
+                if (!measurementDictionary.ContainsKey(foo.HourOfTheDay))
+                {
+                    measurementDictionary.Add(foo.HourOfTheDay, foo);
+                }
+            }
+
+            return measurementDictionary;
         }
         #endregion
 

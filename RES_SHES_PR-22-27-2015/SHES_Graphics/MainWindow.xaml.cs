@@ -66,9 +66,6 @@ namespace SHES_Graphics
 
             _backgroundWorker.DoWork += BackgroundWorker_DoWork;
             _backgroundWorker.RunWorkerAsync();
-
-            //BindPropertyToUIElement(CurrentTimeProperty, CurrentTime, TextBlock.TextProperty, "CurrentTime");
-            //BindPropertyToUIElement(CurrentPriceProperty, CurrentPrice, TextBlock.TextProperty, "CurrentPrice");
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -155,17 +152,6 @@ namespace SHES_Graphics
 
                 Thread.Sleep(Constants.MILISECONDS_IN_SECOND);
             }
-        }
-
-        private void BindPropertyToUIElement(Object source, DependencyObject target, DependencyProperty dp, String nameOfProperty)
-        {
-            Binding binding = new Binding
-            {
-                Source = source,
-                Path = new PropertyPath(nameOfProperty),
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            };
-            BindingOperations.SetBinding(target, dp, binding);
         }
 
         #region INotifyPropertyChanged

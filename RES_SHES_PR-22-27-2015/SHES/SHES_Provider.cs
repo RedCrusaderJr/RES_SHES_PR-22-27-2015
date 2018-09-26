@@ -15,12 +15,16 @@ namespace SHES
         public List<Dictionary<String, Double>> GetInfoForDate(string date)
         {
             Dictionary<Double, IMeasurement> measurementsForDay = DBManager.S_Instance.GetAllMeasurementsBySpecificDay(int.Parse(date.Split('.')[0]));
+            List<KeyValuePair<Double, IMeasurement>> sortedMeasurements = measurementsForDay.ToList();
+            sortedMeasurements = sortedMeasurements.OrderBy(sm => sm.Key).ToList();
 
-            Dictionary<String, Double> solarPanelProduction = SolarPanelProductionConvertion(measurementsForDay);
-            Dictionary<String, Double> batteryConsumptionProduction = BatteryConsumptionProductionConvertion(measurementsForDay);
-            Dictionary<String, Double> powerFromUtility = PowerFromUtilityConvertion(measurementsForDay);
-            Dictionary<String, Double> totalConsumption = TotalConsumptionConvertion(measurementsForDay);
-            Dictionary<String, Double> powerPrice = PowerPriceConvertion(measurementsForDay);
+            sortedMeasurements = Discretize(sortedMeasurements);
+
+            Dictionary <String, Double> solarPanelProduction = SolarPanelProductionConvertion(sortedMeasurements);
+            Dictionary<String, Double> batteryConsumptionProduction = BatteryConsumptionProductionConvertion(sortedMeasurements);
+            Dictionary<String, Double> powerFromUtility = PowerFromUtilityConvertion(sortedMeasurements);
+            Dictionary<String, Double> totalConsumption = TotalConsumptionConvertion(sortedMeasurements);
+            Dictionary<String, Double> powerPrice = PowerPriceConvertion(sortedMeasurements);
 
             List<Dictionary<String, Double>> listOfInfoForDay = new List<Dictionary<String, Double>>
             {
@@ -34,6 +38,24 @@ namespace SHES
             return listOfInfoForDay;
         }
 
+        private List<KeyValuePair<double, IMeasurement>> Discretize(List<KeyValuePair<double, IMeasurement>> sortedMeasurements)
+        {
+            List<KeyValuePair<double, IMeasurement>> discretizedList = new List<KeyValuePair<double, IMeasurement>>();
+
+            discretizedList.Add(sortedMeasurements[0]);
+            double lastKeyValue = sortedMeasurements[0].Key;
+            foreach(KeyValuePair<double,IMeasurement> kvp in sortedMeasurements)
+            {
+                if(kvp.Key >= lastKeyValue+1)
+                {
+                    discretizedList.Add(kvp);
+                    lastKeyValue = kvp.Key;
+                }
+            }
+
+            return discretizedList;
+        }
+
         private String TotalHoursToString(Double totalHours)
         {
             Int32 totalMinutes = (Int32)(totalHours * Constants.MINUTES_IN_HOUR);
@@ -41,7 +63,7 @@ namespace SHES
             return String.Format($"{ts.Hours} : {ts.Minutes}");
         }
 
-        private Dictionary<String, Double> SolarPanelProductionConvertion(Dictionary<Double, IMeasurement> measurementsForDay)
+        private Dictionary<String, Double> SolarPanelProductionConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
         {
             Dictionary<String, Double> solarPanelProductionInfo = new Dictionary<string, double>();
 
@@ -58,7 +80,7 @@ namespace SHES
             return solarPanelProductionInfo;
         }
 
-        private Dictionary<String, Double> BatteryConsumptionProductionConvertion(Dictionary<Double, IMeasurement> measurementsForDay)
+        private Dictionary<String, Double> BatteryConsumptionProductionConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
         {
             Dictionary<String, Double> batteryConsumptionProductionInfo = new Dictionary<string, double>();
 
@@ -75,7 +97,7 @@ namespace SHES
             return batteryConsumptionProductionInfo;
         }
 
-        private Dictionary<String, Double> PowerFromUtilityConvertion(Dictionary<Double, IMeasurement> measurementsForDay)
+        private Dictionary<String, Double> PowerFromUtilityConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
         {
             Dictionary<String, Double> powerFromUtilityInfo = new Dictionary<string, double>();
 
@@ -92,7 +114,7 @@ namespace SHES
             return powerFromUtilityInfo;
         }
 
-        private Dictionary<String, Double> TotalConsumptionConvertion(Dictionary<Double, IMeasurement> measurementsForDay)
+        private Dictionary<String, Double> TotalConsumptionConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
         {
             Dictionary<String, Double> totalConsumptionInfo = new Dictionary<string, double>();
 
@@ -109,7 +131,7 @@ namespace SHES
             return totalConsumptionInfo;
         }
 
-        private Dictionary<String, Double> PowerPriceConvertion(Dictionary<Double, IMeasurement> measurementsForDay)
+        private Dictionary<String, Double> PowerPriceConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
         {
             Dictionary<String, Double> powerPriceInfo = new Dictionary<string, double>();
 

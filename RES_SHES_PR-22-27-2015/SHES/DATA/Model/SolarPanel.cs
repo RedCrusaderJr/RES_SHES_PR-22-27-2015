@@ -41,7 +41,13 @@ namespace SHES.Data.Model
 
         private IWeatherForecast Connect()
         {
-            NetTcpBinding binding = new NetTcpBinding();
+            NetTcpBinding binding = new NetTcpBinding()
+            {
+                CloseTimeout = new TimeSpan(0, 10, 0),
+                OpenTimeout = new TimeSpan(0, 10, 0),
+                ReceiveTimeout = new TimeSpan(0, 10, 0),
+                SendTimeout = new TimeSpan(0, 10, 0),
+            };
 
             return new ChannelFactory<IWeatherForecast>(binding, new EndpointAddress("net.tcp://localhost:6001/WeathetForecast")).CreateChannel();
         }
