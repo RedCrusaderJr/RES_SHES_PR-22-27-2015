@@ -42,7 +42,7 @@ namespace SHES_Graphics
             set
             {
                 _currentTimeProperty = value;
-                OnPropertyChanged("CurrentTime");
+                CurrentTime.Text = _currentTimeProperty;
             }
         }
         public String CurrentPriceProperty
@@ -51,7 +51,7 @@ namespace SHES_Graphics
             set
             {
                 _currentPrice = value;
-                OnPropertyChanged("CurrentPrice");
+                CurrentPrice.Text = _currentPrice;
             }
         }
         public Int32 TotalMinutes { get; set; }
@@ -67,37 +67,29 @@ namespace SHES_Graphics
             _backgroundWorker.DoWork += BackgroundWorker_DoWork;
             _backgroundWorker.RunWorkerAsync();
 
-            BindPropertyToUIElement(CurrentTimeProperty, CurrentTime, TextBlock.TextProperty, "CurrentTime");
-            BindPropertyToUIElement(CurrentPriceProperty, CurrentPrice, TextBlock.TextProperty, "CurrentPrice");
+            //BindPropertyToUIElement(CurrentTimeProperty, CurrentTime, TextBlock.TextProperty, "CurrentTime");
+            //BindPropertyToUIElement(CurrentPriceProperty, CurrentPrice, TextBlock.TextProperty, "CurrentPrice");
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ISHES proxy = ConnectToSHES();
-            //OVDE PUCA!!!!!!!!!!!!!!!!!
-            Dictionary<Double, IMeasurement> measurementsForDay = proxy.GetInfoForDate(GraphDate.SelectedValue.ToString());
+            List<Dictionary<String, Double>> measurementsForDay = proxy.GetInfoForDate(GraphDate.SelectedValue.ToString());
 
-            Dictionary<String, Double> solarPanelProduction = measurementsForDay.ToDictionary(m => TotalHoursToString(m.Key), m => m.Value.SolarPanelProduction);
+            Dictionary<String, Double> solarPanelProduction = measurementsForDay[0];
             ((LineSeries)chart.Series[0]).ItemsSource = solarPanelProduction;
 
-            Dictionary<String, Double> batteryConsumptionProduction = measurementsForDay.ToDictionary(m => TotalHoursToString(m.Key), m => m.Value.BatteryBalance);
+            Dictionary<String, Double> batteryConsumptionProduction = measurementsForDay[1];
             ((LineSeries)chart.Series[1]).ItemsSource = batteryConsumptionProduction;
 
-            Dictionary<String, Double> powerFromUtility = measurementsForDay.ToDictionary(m => TotalHoursToString(m.Key), m => m.Value.PowerFromUtility);
+            Dictionary<String, Double> powerFromUtility = measurementsForDay[2];
             ((LineSeries)chart.Series[2]).ItemsSource = powerFromUtility;
 
-            Dictionary<String, Double> totalConsumption = measurementsForDay.ToDictionary(m => TotalHoursToString(m.Key), m => m.Value.TotalConsumption);
+            Dictionary<String, Double> totalConsumption = measurementsForDay[3];
             ((LineSeries)chart.Series[3]).ItemsSource = totalConsumption;
 
-            Dictionary<String, Double> powerPrice = measurementsForDay.ToDictionary(m => TotalHoursToString(m.Key), m => m.Value.PowerPrice);
+            Dictionary<String, Double> powerPrice = measurementsForDay[4];
             ((LineSeries)chart.Series[4]).ItemsSource = powerPrice;
-        }
-
-        private String TotalHoursToString(Double totalHours)
-        {
-            TotalMinutes = (Int32) (totalHours * Constants.MINUTES_IN_HOUR);
-            TimeSpan ts = TimeSpan.FromMinutes(TotalMinutes);
-            return String.Format($"{ts.Hours} : {ts.Minutes}");
         }
 
         private ISHES ConnectToSHES()
@@ -147,7 +139,7 @@ namespace SHES_Graphics
                 Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
                 {
                     CurrentTimeProperty = String.Format($"{ts.Hours} : {ts.Minutes}");
-                    CurrentPriceProperty = String.Format($"Current price: {utilityProxy.GetPowerPrice()} [$/kWh]");
+                    CurrentPriceProperty = String.Format($"Power price: {utilityProxy.GetPowerPrice()} [$/kWh]");
 
                     Int32 day = universalClockProxy.GetDay();
                     if (day - 1 != 0)

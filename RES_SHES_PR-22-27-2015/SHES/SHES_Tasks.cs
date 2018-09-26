@@ -135,9 +135,9 @@ namespace SHES
                 currentMeasurement.Day = UniversalClock.S_Instance.TimeDay;
                 currentMeasurement.HourOfTheDay = UniversalClock.S_Instance.TimeHours;                
 
-                Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.TotalBalance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
-                Console.WriteLine($"Balans price: {currentMeasurement.TotalBalancePrice}");
-                Console.WriteLine();
+                //Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.TotalBalance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
+                //Console.WriteLine($"Balans price: {currentMeasurement.TotalBalancePrice}");
+                //Console.WriteLine();
 
                 DBManager.S_Instance.AddMeasurement(currentMeasurement);
 

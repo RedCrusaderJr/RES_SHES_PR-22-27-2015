@@ -39,6 +39,6 @@ namespace Common
     public interface ISHES
     {
         [OperationContract]
-        Dictionary<Double, IMeasurement> GetInfoForDate(String date);
+        List<Dictionary<String, Double>> GetInfoForDate(String date);
     }
 }
