@@ -34,7 +34,7 @@
                 <charting:LineSeries Title="Power Price" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}"/>
             </charting:Chart.Series>
         </charting:Chart>
-        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="Segoe UI Black" FontSize="90">System analitics</TextBlock>
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" FontFamily="Segoe UI Black" FontSize="90">System analytics</TextBlock>
         <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Background="Transparent" HorizontalAlignment="Right" Margin="70,0,0,0">
             <TextBlock Name="CurrentTime" Width="800" Height="100" Margin="0,0,0,0" TextAlignment="Right" FontFamily="Segoe UI Black" FontSize="70" HorizontalAlignment="Right"/>
             <TextBlock Name="CurrentPrice" Width="800" Height="100" Margin="0,0,0,0" TextAlignment="Right" FontFamily="Segoe UI Black" FontSize="45" HorizontalAlignment="Right"/>

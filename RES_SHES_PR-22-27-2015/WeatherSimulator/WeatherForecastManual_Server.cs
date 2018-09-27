@@ -8,12 +8,12 @@ using Common;
 
 namespace WeatherSimulator
 {
-    class WeatherForecastManual_Server
+    public class WeatherForecastManual_Server
     {
-        private ServiceHost _serviceHost;
-        private String _hostAddress = "net.tcp://localhost:6001/WeathetForecast";
+        public ServiceHost _serviceHost;
+        public String _hostAddress = "net.tcp://localhost:6001/WeathetForecast";
 
-        internal static int currentSunlight;
+        public static int currentSunlight;
 
         public WeatherForecastManual_Server()
         {

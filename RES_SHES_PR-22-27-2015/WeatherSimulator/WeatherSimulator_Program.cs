@@ -45,7 +45,7 @@ namespace WeatherSimulator
 
                 if (answer != -1)
                 {
-                    WeatherForecast_Server.currentSunlight = answer;
+                    WeatherForecastManual_Server.currentSunlight = answer;
                 }
             }
         }
@@ -101,6 +101,14 @@ namespace WeatherSimulator
                 {
                     sunlightPercentage = 0;
                 }
+
+
+                // TODO
+                // da li je ova dodela ok
+
+                WeatherForecast_Server.currentSunlight = sunlightPercentage;
+
+                //
 
                 Console.WriteLine($"Sunlight(%): {sunlightPercentage}   time[{hourOfTheDay}]");
                 Thread.Sleep(Constants.MILISECONDS_IN_SECOND);

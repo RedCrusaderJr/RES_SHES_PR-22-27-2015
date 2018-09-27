@@ -22,11 +22,26 @@ namespace SHES.Data.Model
 
         public Battery(string id)
         {
+            if(id == null)
+            {
+                throw new ArgumentNullException("ID cannot be null!");
+            }
+
+            if(id == "")
+            {
+                throw new ArgumentException("ID cannot be empty!");
+            }
+
             BatteryID = id;
         }
 
         public Battery(Battery b)
         {
+            if(b == null)
+            {
+                throw new ArgumentNullException("Battery cannot be null!");
+            }
+
             BatteryID = b.BatteryID;
             MaxPower = b.MaxPower;
             MaxCapacity = b.MaxCapacity;

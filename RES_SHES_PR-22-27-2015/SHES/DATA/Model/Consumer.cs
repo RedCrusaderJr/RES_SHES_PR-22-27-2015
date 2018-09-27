@@ -20,11 +20,27 @@ namespace SHES.Data.Model
 
         public Consumer(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException("ID cannot be null!");
+            }
+
+            if (id == "")
+            {
+                throw new ArgumentException("ID cannot be empty!");
+            }
+
             ConsumerID = id;
         }
 
         public Consumer(Consumer c)
         {
+            if (c == null)
+            {
+                throw new ArgumentNullException("Consumer cannot be null!");
+            }
+
+
             ConsumerID = c.ConsumerID;
             Consumption = c.Consumption;
             IsConsuming = c.IsConsuming;

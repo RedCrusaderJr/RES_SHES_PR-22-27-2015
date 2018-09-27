@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UniversalTimer
 {
-    class UniversalClock_Server
+    public class UniversalClock_Server
     {
         public ServiceHost ServiceHost { get; }
         public String HostAddress { get; } = "net.tcp://localhost:6004/UniversalClock";

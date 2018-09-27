@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WeatherSimulator
 {
-    class WeatherForecastManual_Provider : IWeatherForecast
+    public class WeatherForecastManual_Provider : IWeatherForecast
     {
         public int GetSunlightPercentage()
         {

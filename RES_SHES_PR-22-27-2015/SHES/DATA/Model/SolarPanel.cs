@@ -23,6 +23,16 @@ namespace SHES.Data.Model
 
         public SolarPanel(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException("ID cannot be null!");
+            }
+
+            if (id == "")
+            {
+                throw new ArgumentException("ID cannot be empty!");
+            }
+
             SolarPanelID = id;
         }
 

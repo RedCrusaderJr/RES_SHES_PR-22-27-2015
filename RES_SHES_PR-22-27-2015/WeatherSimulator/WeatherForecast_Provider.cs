@@ -9,7 +9,7 @@ using Common;
 
 namespace WeatherSimulator
 {
-    class WeatherForecast_Provider : IWeatherForecast
+    public class WeatherForecast_Provider : IWeatherForecast
     {
         public int GetSunlightPercentage()
         {
