@@ -7,18 +7,34 @@ using Common;
 using NUnit.Framework;
 using WeatherSimulator;
 using System.ServiceModel;
+using Moq;
 
 namespace WeatherSimulatorTest
 {
     [TestFixture]
     class WeatherForecastManual_ProviderTest
     {
+        /*
+        private WeatherForecastManual_Server server;
+
+        
+        [SetUp]
+        public void SetUp()
+        {
+            Mock<WeatherForecastManual_Server> serverMoq = new Mock<WeatherForecastManual_Server>();
+            serverMoq.Setup(sm => sm.CurrentSunlight) //static metode se ne mogu mokovati
+            WeatherForecastManual_Server.currentSunligh
+        }
+        */
+
         [Test]
         public void GetSunlightPercentageGoodExample()
         {
-            WeatherForecastManual_Provider x = new WeatherForecastManual_Provider();
+            int sunLightPersentage = 15;
+            WeatherForecastManual_Provider provider = new WeatherForecastManual_Provider();
+            WeatherForecast_Server.CurrentSunlight = sunLightPersentage;
 
-            Assert.AreEqual(x.GetSunlightPercentage(), WeatherForecastManual_Server.currentSunlight);
+            Assert.AreEqual(provider.GetSunlightPercentage(0), WeatherForecast_Server.CurrentSunlight);
         }
     }
 }

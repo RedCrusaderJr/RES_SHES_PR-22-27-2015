@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
-using Common.Model;
 
 namespace Common
 {
@@ -12,24 +11,30 @@ namespace Common
     public interface IWeatherForecast
     {
         [OperationContract]
-        Int32 GetSunlightPercentage();
+        Int32 GetSunlightPercentage(Double hourOfTheDay);
     }
 
     [ServiceContract]
     public interface IPowerPrice
     {
         [OperationContract]
-        Double GetPowerPrice();
+        Double GetPowerPrice(Double hourOfTheDay);
 
         [OperationContract]
-        Tuple<Tuple<Int32, Double>, Double> GetPowerPriceWithDate();
+        Tuple<Tuple<Int32, Double>, Double> GetPowerPriceWithDate(Double hourOfTheDay, Int32 Day);
     }
 
     [ServiceContract]
-    public interface IUniversalClock
+    public interface IUniversalClockService
     {
         [OperationContract]
+        Int32 GetTimeInSeconds();
+
+        [OperationContract]
         Int32 GetTimeInMinutes();
+
+        [OperationContract]
+        Double GetTimeInHours();
 
         [OperationContract]
         Int32 GetDay();

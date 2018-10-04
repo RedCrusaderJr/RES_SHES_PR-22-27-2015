@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Model;
 using SHES.Data.Access;
 using SHES.Data.Model;
 using System;
@@ -70,7 +69,7 @@ namespace SHES_Graphics
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ISHES proxy = ConnectToSHES();
+            ISHES proxy = ConnectHelper.ConnectToSHES();
             List<Dictionary<String, Double>> measurementsForDay = proxy.GetInfoForDate(GraphDate.SelectedValue.ToString());
 
             Dictionary<String, Double> solarPanelProduction = measurementsForDay[0];
@@ -89,54 +88,20 @@ namespace SHES_Graphics
             ((LineSeries)chart.Series[4]).ItemsSource = powerPrice;
         }
 
-        private ISHES ConnectToSHES()
-        { 
-            NetTcpBinding binding = new NetTcpBinding()
-            {
-                CloseTimeout = new TimeSpan(0, 10, 0),
-                OpenTimeout = new TimeSpan(0, 10, 0),
-                ReceiveTimeout = new TimeSpan(0, 10, 0),
-                SendTimeout = new TimeSpan(0, 10, 0),
-            };
-            return new ChannelFactory<ISHES>(binding, new EndpointAddress("net.tcp://localhost:6005/SHES")).CreateChannel();
-        }
-        private IPowerPrice ConnectToUtility()
-        {
-            NetTcpBinding binding = new NetTcpBinding()
-            {
-                CloseTimeout = new TimeSpan(0, 10, 0),
-                OpenTimeout = new TimeSpan(0, 10, 0),
-                ReceiveTimeout = new TimeSpan(0, 10, 0),
-                SendTimeout = new TimeSpan(0, 10, 0),
-            };
-            return new ChannelFactory<IPowerPrice>(binding, new EndpointAddress("net.tcp://localhost:6002/PowerPrice")).CreateChannel();
-        }
-        private IUniversalClock ConnectToUniversalClock()
-        {
-            NetTcpBinding binding = new NetTcpBinding()
-            {
-                CloseTimeout = new TimeSpan(0, 10, 0),
-                OpenTimeout = new TimeSpan(0, 10, 0),
-                ReceiveTimeout = new TimeSpan(0, 10, 0),
-                SendTimeout = new TimeSpan(0, 10, 0),
-            };
-            return new ChannelFactory<IUniversalClock>(binding, new EndpointAddress("net.tcp://localhost:6004/UniversalClock")).CreateChannel();
-        }
-
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while(true)
             {
-                IUniversalClock universalClockProxy = ConnectToUniversalClock();
+                IUniversalClockService universalClockProxy = ConnectHelper.ConnectUniversalClock();
                 TotalMinutes = universalClockProxy.GetTimeInMinutes();
                 TimeSpan ts = TimeSpan.FromMinutes(TotalMinutes);
 
-                IPowerPrice utilityProxy = ConnectToUtility();
+                IPowerPrice utilityProxy = ConnectHelper.ConnectUtility();
 
                 Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
                 {
                     CurrentTimeProperty = String.Format($"{ts.Hours} : {ts.Minutes}");
-                    CurrentPriceProperty = String.Format($"Power price: {utilityProxy.GetPowerPrice()} [$/kWh]");
+                    CurrentPriceProperty = String.Format($"Power price: {utilityProxy.GetPowerPrice(ConnectHelper.ConnectUniversalClock().GetTimeInHours())} [$/kWh]");
 
                     Int32 day = universalClockProxy.GetDay();
                     if (day - 1 != 0)

@@ -13,7 +13,7 @@ namespace WeatherSimulator
         public ServiceHost _serviceHost;
         public String _hostAddress = "net.tcp://localhost:6001/WeathetForecast";
 
-        public static int currentSunlight;
+        public static int CurrentSunlight { get; set; }
 
         public WeatherForecast_Server()
         {

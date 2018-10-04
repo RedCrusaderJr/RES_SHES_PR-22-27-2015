@@ -24,7 +24,7 @@ namespace UniversalTimer
             };
             ServiceHost = new ServiceHost(typeof(UniversalClock_Provider));
 
-            ServiceHost.AddServiceEndpoint(typeof(IUniversalClock), binding, HostAddress);
+            ServiceHost.AddServiceEndpoint(typeof(IUniversalClockService), binding, HostAddress);
 
             Console.WriteLine("Server UniversalClock initialized and ready to be opened.");
         }

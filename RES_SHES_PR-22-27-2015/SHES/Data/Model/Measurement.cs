@@ -1,4 +1,4 @@
-﻿using Common.Model;
+﻿using Common.IModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace SHES.Data.Model
 {
     [DataContract]
+    //TODO: fali TEST!
     public class Measurement : IMeasurement
     {
         private double _hourOfTheDay;

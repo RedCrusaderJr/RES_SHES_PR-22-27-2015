@@ -9,9 +9,9 @@ namespace WeatherSimulator
 {
     public class WeatherForecastManual_Provider : IWeatherForecast
     {
-        public int GetSunlightPercentage()
+        public int GetSunlightPercentage(double hourOfTheDay)
         {
-            return WeatherForecast_Server.currentSunlight;
-        }  
+            return WeatherForecastManual_Server.CurrentSunlight;
+        }
     }
 }

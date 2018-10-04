@@ -11,13 +11,12 @@ namespace WeatherSimulator
 {
     public class WeatherForecast_Provider : IWeatherForecast
     {
-        public int GetSunlightPercentage()
+        public int GetSunlightPercentage(Double hourOfTheDay)
         {
             int sunlightPercentage = 0;
             Random random = new Random();
 
-
-            double hourOfTheDay = UniversalClock.S_Instance.TimeHours;
+            //double hourOfTheDay = ConnectHelper.ConnectUniversalClock().GetTimeInHours();
 
             if (hourOfTheDay >= 0 && hourOfTheDay < 5.5)
             {

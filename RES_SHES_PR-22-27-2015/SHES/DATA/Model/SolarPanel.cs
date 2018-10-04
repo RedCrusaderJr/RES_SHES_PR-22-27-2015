@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.IModel;
 using SHES.Data.Access;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SHES.Data.Model
 {
-    public class SolarPanel
+    public class SolarPanel : ISolarPanel
     {
         [Key]
         public string SolarPanelID { get; set; }
@@ -43,30 +44,16 @@ namespace SHES.Data.Model
             StartTask();
         }
 
-        private double CalculatePower()
+        public double CalculatePower(IWeatherForecast proxy, double hourOfTheDay)
         {
-            IWeatherForecast proxy = Connect();
-            return (MaxPower * proxy.GetSunlightPercentage() / 100);
-        }
-
-        private IWeatherForecast Connect()
-        {
-            NetTcpBinding binding = new NetTcpBinding()
-            {
-                CloseTimeout = new TimeSpan(0, 10, 0),
-                OpenTimeout = new TimeSpan(0, 10, 0),
-                ReceiveTimeout = new TimeSpan(0, 10, 0),
-                SendTimeout = new TimeSpan(0, 10, 0),
-            };
-
-            return new ChannelFactory<IWeatherForecast>(binding, new EndpointAddress("net.tcp://localhost:6001/WeathetForecast")).CreateChannel();
+            return (MaxPower * proxy.GetSunlightPercentage(hourOfTheDay) / 100);
         }
 
         public void StartTask()
         {
             Task.Run(() =>
             {
-                CurrentPower = CalculatePower();
+                CurrentPower = CalculatePower(ConnectHelper.ConnectWeatherForecast(), ConnectHelper.ConnectUniversalClock().GetTimeInHours());
                 DBManager.S_Instance.UpdateSolarPanel(this);
             });
         }

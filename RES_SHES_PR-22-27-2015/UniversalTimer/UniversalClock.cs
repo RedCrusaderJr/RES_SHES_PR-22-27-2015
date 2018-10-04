@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Common
+namespace UniversalTimer
 {
-    public class UniversalClock
+    public class UniversalClock : IUniversalClock
     {
         #region Instance
         private static UniversalClock s_instance;
@@ -56,7 +57,6 @@ namespace Common
             }
         }
         public Int32 TimeDay { get; private set; }
-
 
         private UniversalClock()
         {

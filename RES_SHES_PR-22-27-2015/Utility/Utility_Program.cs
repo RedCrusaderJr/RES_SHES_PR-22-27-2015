@@ -29,7 +29,7 @@ namespace Utility
             
             while (true)
             {
-                hourOfTheDay = UniversalClock.S_Instance.TimeHours;
+                hourOfTheDay = ConnectHelper.ConnectUniversalClock().GetTimeInHours();
                 price = (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0) ? lowPrice : highPrice;
                 
                 Console.WriteLine($"Price of kwh ($/kwh): {Math.Round(price, 5)}   time[{hourOfTheDay}]");

@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Common.IModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SHES.Data.Model
 {
-    public class Consumer
+    public class Consumer : IConsumer
     {
         [Key]
         public string ConsumerID { get; set; }

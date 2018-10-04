@@ -10,8 +10,10 @@ using Common;
 namespace UniversalTimerTest
 {
     [TestFixture]
-    class UniversalClock_ProviderTest
+    public class UniversalClock_ProviderTest
     {
+        //Mislim da nema smisla testirati
+        /*
         [Test]
         public void GetDayTesting()
         {
@@ -20,10 +22,25 @@ namespace UniversalTimerTest
         }
 
         [Test]
+        public void GetTimeInHoursTesting()
+        {
+            UniversalClock_Provider x = new UniversalClock_Provider();
+            Assert.AreEqual(x.GetTimeInMinutes(), UniversalClock.S_Instance.TimeMinutes);
+        }
+
+        [Test]
         public void GetTimeInMinutesTesting()
         {
             UniversalClock_Provider x = new UniversalClock_Provider();
             Assert.AreEqual(x.GetTimeInMinutes(), UniversalClock.S_Instance.TimeMinutes);
         }
+
+        [Test]
+        public void GetTimeInSecondsTesting()
+        {
+            UniversalClock_Provider x = new UniversalClock_Provider();
+            Assert.AreEqual(x.GetTimeInMinutes(), UniversalClock.S_Instance.TimeMinutes);
+        }
+        */
     }
 }

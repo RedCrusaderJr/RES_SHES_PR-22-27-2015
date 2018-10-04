@@ -32,7 +32,7 @@ namespace WeatherSimulator
 
         private static void Manual(WeatherForecastManual_Server serverManual)
         {
-            WeatherForecastManual_Server.currentSunlight = 0;
+            WeatherForecastManual_Server.CurrentSunlight = 0;
 
             serverManual.Open();
             Thread.Sleep(Constants.WAITING_TIME);
@@ -45,7 +45,7 @@ namespace WeatherSimulator
 
                 if (answer != -1)
                 {
-                    WeatherForecastManual_Server.currentSunlight = answer;
+                    WeatherForecastManual_Server.CurrentSunlight = answer;
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace WeatherSimulator
 
             while (true)
             {
-                double hourOfTheDay = UniversalClock.S_Instance.TimeHours;
+                double hourOfTheDay = ConnectHelper.ConnectUniversalClock().GetTimeInHours();
 
                 if (hourOfTheDay >= 0 && hourOfTheDay < 5.5)
                 {
@@ -106,7 +106,7 @@ namespace WeatherSimulator
                 // TODO
                 // da li je ova dodela ok
 
-                WeatherForecast_Server.currentSunlight = sunlightPercentage;
+                WeatherForecast_Server.CurrentSunlight = sunlightPercentage;
 
                 //
 

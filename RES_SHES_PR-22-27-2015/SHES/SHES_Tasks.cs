@@ -20,7 +20,7 @@ namespace SHES
             while (true)
             { 
                 Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
-                hourOfTheDay = UniversalClock.S_Instance.TimeHours;
+                hourOfTheDay = ConnectHelper.ConnectUniversalClock().GetTimeInHours();
 
                 if(hourOfTheDay >= 3 && hourOfTheDay <= 6)
                 {
@@ -62,7 +62,8 @@ namespace SHES
         {
             while (true)
             {
-                IPowerPrice proxy = ConnectUtility();
+                IPowerPrice powerPriceProxy = ConnectHelper.ConnectUtility();
+                IUniversalClockService universalClockProxy = ConnectHelper.ConnectUniversalClock();
 
                 Measurement currentMeasurement = new Measurement
                 {
@@ -131,31 +132,13 @@ namespace SHES
                     currentMeasurement.SolarPanelProduction += sp.CurrentPower;
                 }
 
-                currentMeasurement.PowerPrice = proxy.GetPowerPrice();
-                currentMeasurement.Day = UniversalClock.S_Instance.TimeDay;
-                currentMeasurement.HourOfTheDay = UniversalClock.S_Instance.TimeHours;                
-
-                //Console.WriteLine($"BalanceOfEnergy: {currentMeasurement.TotalBalance}  Price[1 kWh]: {currentMeasurement.PowerPrice}");
-                //Console.WriteLine($"Balans price: {currentMeasurement.TotalBalancePrice}");
-                //Console.WriteLine();
+                currentMeasurement.PowerPrice = powerPriceProxy.GetPowerPrice(universalClockProxy.GetTimeInHours());
+                currentMeasurement.Day = universalClockProxy.GetDay();
+                currentMeasurement.HourOfTheDay = universalClockProxy.GetTimeInHours();                
 
                 DBManager.S_Instance.AddMeasurement(currentMeasurement);
-
                 Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
-        }
-
-        static IPowerPrice ConnectUtility()
-        {
-            NetTcpBinding binding = new NetTcpBinding()
-            {
-                CloseTimeout = new TimeSpan(0, 10, 0),
-                OpenTimeout = new TimeSpan(0, 10, 0),
-                ReceiveTimeout = new TimeSpan(0, 10, 0),
-                SendTimeout = new TimeSpan(0, 10, 0),
-            };
-
-            return new ChannelFactory<IPowerPrice>(binding, new EndpointAddress("net.tcp://localhost:6002/PowerPrice")).CreateChannel();
         }
     }
 }

@@ -12,6 +12,16 @@ namespace SHESTest.Data.Model
     {
         // TODO
 
-        // kako da testiram klasu koja ima roditelja {Battery}
+        [Test]
+        [TestCase("abc")]
+        [TestCase("xxx")]
+        public void EVCConstructor_GoodExample(string id)
+        {
+            ElectricVehicleCharger evc = new ElectricVehicleCharger(id);
+
+            Assert.AreEqual(evc.BatteryID, id);
+        }
+
+        //TODO svi konstruktori
     }
 }

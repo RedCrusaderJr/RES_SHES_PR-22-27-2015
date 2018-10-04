@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UniversalClock.cs" />
     <Compile Include="UniversalClock_Provider.cs" />
     <Compile Include="UniversalClock_Server.cs" />
     <Compile Include="UniversalTimer_Program.cs" />

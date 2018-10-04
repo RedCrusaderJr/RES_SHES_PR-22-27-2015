@@ -447,7 +447,6 @@ namespace SHES
             }
         }
 
-
         public void ChangeEVCCharging()
         {
             Console.WriteLine("List of EVCs => ");

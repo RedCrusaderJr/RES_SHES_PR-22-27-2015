@@ -42,12 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectHelper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Contracts.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="IMeasurement.cs" />
+    <Compile Include="IModel\IBattery.cs" />
+    <Compile Include="IModel\IConsumer.cs" />
+    <Compile Include="IModel\IElectricVehicleCharger.cs" />
+    <Compile Include="IModel\IMeasurement.cs" />
+    <Compile Include="IModel\ISolarPanel.cs" />
+    <Compile Include="IUniversalClock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UniversalClock.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

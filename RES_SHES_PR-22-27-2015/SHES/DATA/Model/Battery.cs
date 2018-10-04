@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.IModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SHES.Data.Model
 {
-    public class Battery
+    public class Battery : IBattery
     {
         [Key]
         public string BatteryID { get; set; }

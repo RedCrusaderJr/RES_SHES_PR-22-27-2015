@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SHES
 {
+    //TODO: Testirati
     public class MenuFunctions
     {
         public static void StartDriving(ElectricVehicleCharger evc, double drinigHours)
