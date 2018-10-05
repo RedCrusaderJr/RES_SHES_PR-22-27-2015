@@ -30,11 +30,15 @@ namespace WeatherSimulatorTest
         [Test]
         public void GetSunlightPercentageGoodExample()
         {
-            int sunLightPersentage = 15;
+            /*
             WeatherForecastManual_Provider provider = new WeatherForecastManual_Provider();
+
+            int sunLightPersentage = 15;
+            WeatherForecast_Server server = new WeatherForecast_Server();
             WeatherForecast_Server.CurrentSunlight = sunLightPersentage;
 
             Assert.AreEqual(provider.GetSunlightPercentage(0), WeatherForecast_Server.CurrentSunlight);
+            */
         }
     }
 }

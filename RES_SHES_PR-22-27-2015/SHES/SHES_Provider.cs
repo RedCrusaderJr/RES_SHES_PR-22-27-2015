@@ -10,29 +10,57 @@ using Common.IModel;
 
 namespace SHES
 {
+    //TODO: testrati
     class SHES_Provider : ISHES
     {
         public List<Dictionary<String, Double>> GetInfoForDate(string date)
         {
-            Dictionary<Double, IMeasurement> measurementsForDay = DBManager.S_Instance.GetAllMeasurementsBySpecificDay(int.Parse(date.Split('.')[0]));
+            if (int.TryParse(date.Split('.')[0], out int specificDay))
+            {
+                specificDay++;
+            }
+            else
+            {
+                specificDay = 1;
+            }
+
+            Dictionary<Double, IMeasurement> measurementsForDay = DBManager.S_Instance.GetAllMeasurementsBySpecificDay(specificDay);
             List<KeyValuePair<Double, IMeasurement>> sortedMeasurements = measurementsForDay.ToList();
             sortedMeasurements = sortedMeasurements.OrderBy(sm => sm.Key).ToList();
 
             sortedMeasurements = Discretize(sortedMeasurements);
 
+            //[0]
             Dictionary <String, Double> solarPanelProduction = SolarPanelProductionConvertion(sortedMeasurements);
+            //[1]
             Dictionary<String, Double> batteryConsumptionProduction = BatteryConsumptionProductionConvertion(sortedMeasurements);
+            //[2]
             Dictionary<String, Double> powerFromUtility = PowerFromUtilityConvertion(sortedMeasurements);
+            //[3]
+            Dictionary<String, Double> powerToUtility = PowerToUtilityConvertion(sortedMeasurements);
+            //[4]
             Dictionary<String, Double> totalConsumption = TotalConsumptionConvertion(sortedMeasurements);
+            //[5]
             Dictionary<String, Double> powerPrice = PowerPriceConvertion(sortedMeasurements);
+            //[6]
+            Dictionary<String, Double> moneyBalance = MoneyBalanceConvertion(sortedMeasurements);
 
             List<Dictionary<String, Double>> listOfInfoForDay = new List<Dictionary<String, Double>>
             {
+                //[0]
                 solarPanelProduction,
+                //[1]
                 batteryConsumptionProduction,
+                //[2]
                 powerFromUtility,
+                //[3]
+                powerToUtility,
+                //[4]
                 totalConsumption,
-                powerPrice
+                //[5]
+                powerPrice,
+                //[6]
+                moneyBalance,
             };
 
             return listOfInfoForDay;
@@ -40,9 +68,10 @@ namespace SHES
 
         private List<KeyValuePair<double, IMeasurement>> Discretize(List<KeyValuePair<double, IMeasurement>> sortedMeasurements)
         {
-            List<KeyValuePair<double, IMeasurement>> discretizedList = new List<KeyValuePair<double, IMeasurement>>();
-
-            discretizedList.Add(sortedMeasurements[0]);
+            List<KeyValuePair<double, IMeasurement>> discretizedList = new List<KeyValuePair<double, IMeasurement>>
+            {
+                sortedMeasurements[0]
+            };
             double lastKeyValue = sortedMeasurements[0].Key;
             foreach(KeyValuePair<double,IMeasurement> kvp in sortedMeasurements)
             {
@@ -114,6 +143,23 @@ namespace SHES
             return powerFromUtilityInfo;
         }
 
+        private Dictionary<String, Double> PowerToUtilityConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
+        {
+            Dictionary<String, Double> powerFromUtilityInfo = new Dictionary<string, double>();
+
+            foreach (KeyValuePair<Double, IMeasurement> kvp in measurementsForDay)
+            {
+                String time = TotalHoursToString(kvp.Key);
+
+                if (!powerFromUtilityInfo.ContainsKey(time))
+                {
+                    powerFromUtilityInfo.Add(time, kvp.Value.PowerToUtility);
+                }
+            }
+
+            return powerFromUtilityInfo;
+        }
+
         private Dictionary<String, Double> TotalConsumptionConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
         {
             Dictionary<String, Double> totalConsumptionInfo = new Dictionary<string, double>();
@@ -142,6 +188,23 @@ namespace SHES
                 if (!powerPriceInfo.ContainsKey(time))
                 {
                     powerPriceInfo.Add(time, kvp.Value.PowerPrice);
+                }
+            }
+
+            return powerPriceInfo;
+        }
+
+        private Dictionary<String, Double> MoneyBalanceConvertion(List<KeyValuePair<Double, IMeasurement>> measurementsForDay)
+        {
+            Dictionary<String, Double> powerPriceInfo = new Dictionary<string, double>();
+
+            foreach (KeyValuePair<Double, IMeasurement> kvp in measurementsForDay)
+            {
+                String time = TotalHoursToString(kvp.Key);
+
+                if (!powerPriceInfo.ContainsKey(time))
+                {
+                    powerPriceInfo.Add(time, kvp.Value.MoneyBalance);
                 }
             }
 

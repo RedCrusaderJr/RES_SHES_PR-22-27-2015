@@ -81,11 +81,17 @@ namespace SHES_Graphics
             Dictionary<String, Double> powerFromUtility = measurementsForDay[2];
             ((LineSeries)chart.Series[2]).ItemsSource = powerFromUtility;
 
-            Dictionary<String, Double> totalConsumption = measurementsForDay[3];
-            ((LineSeries)chart.Series[3]).ItemsSource = totalConsumption;
+            Dictionary<String, Double> powerToUtility = measurementsForDay[3];
+            ((LineSeries)chart.Series[3]).ItemsSource = powerToUtility;
 
-            Dictionary<String, Double> powerPrice = measurementsForDay[4];
-            ((LineSeries)chart.Series[4]).ItemsSource = powerPrice;
+            Dictionary<String, Double> totalConsumption = measurementsForDay[4];
+            ((LineSeries)chart.Series[4]).ItemsSource = totalConsumption;
+
+            Dictionary<String, Double> powerPrice = measurementsForDay[5];
+            ((LineSeries)chart.Series[5]).ItemsSource = powerPrice;
+
+            Dictionary<String, Double> moneyBalance = measurementsForDay[6];
+            ((LineSeries)chart.Series[6]).ItemsSource = moneyBalance;
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -98,10 +104,10 @@ namespace SHES_Graphics
 
                 IPowerPrice utilityProxy = ConnectHelper.ConnectUtility();
 
-                Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+                Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
                 {
                     CurrentTimeProperty = String.Format($"{ts.Hours} : {ts.Minutes}");
-                    CurrentPriceProperty = String.Format($"Power price: {utilityProxy.GetPowerPrice(ConnectHelper.ConnectUniversalClock().GetTimeInHours())} [$/kWh]");
+                    CurrentPriceProperty = String.Format($"Power price: {utilityProxy.GetPowerPrice(universalClockProxy.GetTimeInHours())} [$/kWh]");
 
                     Int32 day = universalClockProxy.GetDay();
                     if (day - 1 != 0)
@@ -112,7 +118,16 @@ namespace SHES_Graphics
                         {
                             ListOfDays.Add(newDayString);
                         }
-                    }    
+                    }
+                    else
+                    {
+                        String newDayString = $"Dan u kojem je startovana aplikacija";
+
+                        if (!ListOfDays.Contains(newDayString))
+                        {
+                            ListOfDays.Add(newDayString);
+                        }
+                    }
                 }));
 
                 Thread.Sleep(Constants.MILISECONDS_IN_SECOND);
@@ -124,11 +139,7 @@ namespace SHES_Graphics
         public void OnPropertyChanged(string parameter)
         {
 
-            PropertyChangedEventHandler ph = PropertyChanged;
-            if (ph != null)
-            {
-                ph(this, new PropertyChangedEventArgs(parameter));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parameter));
 
         } 
         #endregion

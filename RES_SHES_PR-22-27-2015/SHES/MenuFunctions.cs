@@ -17,8 +17,7 @@ namespace SHES
         {
             if (evc.OnCharger)
             {
-                evc.OnCharger = false;
-                DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
+                DisconnectEVC(evc);
             }
 
             Task.Run(() => Driving(evc, drinigHours));
@@ -28,18 +27,29 @@ namespace SHES
         {
             double drivingMinutes = drivingHours * Constants.MINUTES_IN_HOUR;
 
+            int iterationStart = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
             do
             {
-                DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
-                double capacityChange = evc.CurrentCapacity * Constants.MINUTES_IN_HOUR - 1;
-                evc.CurrentCapacity = Math.Round(capacityChange / Constants.MINUTES_IN_HOUR, 2);
-                DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
+                int currentMoment = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
+                if (currentMoment - iterationStart >= 1)
+                {
+                    iterationStart = currentMoment;
+                }
+                else
+                {
+                    continue;
+                }
+
+                ElectricVehicleCharger evcFromDb = DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
+                double capacityChange = evcFromDb.CurrentCapacity * Constants.MINUTES_IN_HOUR - 1;
+                evcFromDb.CurrentCapacity = Math.Round(capacityChange / Constants.MINUTES_IN_HOUR, 2);
+                DBManager.S_Instance.UpdateElecticVehicleCharger(evcFromDb);
                 drivingMinutes--;
-                Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
             while (drivingMinutes > 0);
         }
 
+        //UKLONITI METODU i prepraviti meni shodno izmeni
         public static void ShowReport()
         {
             // iscrtaj grafik sa 4 krive
@@ -50,6 +60,7 @@ namespace SHES
             //      ukupna potrosnja
         }
 
+        //UKLONITI METODU i prepraviti meni shodno izmeni
         public static void ShowFinancialState()
         {
             // prikazi trenutnu vrednost promenljive KASA (?)
@@ -57,26 +68,30 @@ namespace SHES
 
         public static void ConnectEVC(ElectricVehicleCharger evc)
         {
-            evc.OnCharger = true;
-            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
+            ElectricVehicleCharger evcFromDb = DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
+            evcFromDb.OnCharger = true;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evcFromDb);
         }
 
         public static void DisconnectEVC(ElectricVehicleCharger evc)
         {
-            evc.OnCharger = false;
-            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
+            ElectricVehicleCharger evcFromDb = DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
+            evcFromDb.OnCharger = false;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evcFromDb);
         }
 
         public static void StartCharging(ElectricVehicleCharger evc)
         {
-            evc.Mode = EMode.CONSUMING;
-            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
+            ElectricVehicleCharger evcFromDb = DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
+            evcFromDb.Mode = EMode.CONSUMING;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evcFromDb);
         }
 
         public static void StopCharging(ElectricVehicleCharger evc)
         {
-            evc.Mode = EMode.NONE;
-            DBManager.S_Instance.UpdateElecticVehicleCharger(evc);
+            ElectricVehicleCharger evcFromDb = DBManager.S_Instance.GetSingleElectricVehicleCharger(evc.BatteryID);
+            evcFromDb.Mode = EMode.NONE;
+            DBManager.S_Instance.UpdateElecticVehicleCharger(evcFromDb);
         }
     }
 }

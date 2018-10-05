@@ -13,6 +13,7 @@ namespace WeatherSimulatorTest
     [TestFixture]
     class WeatherForecastManual_ServerTest
     {
+        /*
         [Test]
         public void WeatherForecastManual_ServerConstructorGoodExample()
         {
@@ -37,5 +38,6 @@ namespace WeatherSimulatorTest
 
             Assert.DoesNotThrow(() => server.Close());
         }
+        */
     }
 }

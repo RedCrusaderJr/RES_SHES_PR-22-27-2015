@@ -19,15 +19,17 @@ namespace WeatherSimulatorTest
             WeatherForecast_Server server = new WeatherForecast_Server();
 
             Assert.AreEqual(server._serviceHost.State, CommunicationState.Created);
-            Assert.AreEqual(server._serviceHost.Extensions.Count, 1);
+            //Assert.AreEqual(server._serviceHost.Extensions.Count, 1);
         }
 
+        
         [Test]
         public void WeatherForecast_ServerOpenServiceGoodExample()
         {
             WeatherForecast_Server server = new WeatherForecast_Server();
             Assert.DoesNotThrow(() => server.Open());
         }
+        
 
         [Test]
         public void WeatherForecast_ServerCloseServiceGoodExample()

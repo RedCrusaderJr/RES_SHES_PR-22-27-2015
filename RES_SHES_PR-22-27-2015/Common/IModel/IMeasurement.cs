@@ -16,19 +16,20 @@ namespace Common.IModel
         Double HourOfTheDay { get; set; }
 
         Double TotalConsumption { get; }
-        Double TotalProduction { get; }
-        Double TotalBalance { get; }
-        Double TotalBalancePrice { get; }
-
-        Double SolarPanelProduction { get; set; }
-
-        Double BatteryBalance { get; }
+        Double ConsumersConsumption { get; set; }
         Double BatteryConsumption { get; set; }
 
+        Double TotalProduction { get; }
+        Double SolarPanelProduction { get; set; }
         Double BatteryProduction { get; set; }
-        Double ConsumersConsumption { get; set; }
+
+        Double PowerPrice { get; set; }
+        Double BatteryBalance { get; }
+        Double TotalPowerBalance { get; }
+        Double TotalPowerBalancePrice { get; }
 
         Double PowerFromUtility { get; }
-        Double PowerPrice { get; set; }
+        Double PowerToUtility { get; }
+        Double MoneyBalance { get; }
     }
 }

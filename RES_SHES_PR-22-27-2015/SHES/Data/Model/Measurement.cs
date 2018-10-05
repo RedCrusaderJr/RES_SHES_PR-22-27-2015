@@ -86,20 +86,32 @@ namespace SHES.Data.Model
             get => Math.Round(BatteryProduction - BatteryConsumption, 3);
         }
         [DataMember]
-        public Double TotalBalance
+        public Double TotalPowerBalance
         {
             get => Math.Round(TotalProduction - TotalConsumption, 3);
         }
         [DataMember]
-        public Double TotalBalancePrice
+        public Double TotalPowerBalancePrice
         {
-            get => Math.Round(TotalBalance * PowerPrice, 3);
+            get => Math.Round(TotalPowerBalance * PowerPrice, 3);
         }
+
         [DataMember]
         public Double PowerFromUtility
         {
-            get => TotalBalance < 0 ? -TotalBalance : 0;
+            get => TotalPowerBalance < 0 ? -TotalPowerBalance : 0;
         }
+        [DataMember]
+        public Double PowerToUtility
+        {
+            get => TotalPowerBalance > 0 ? TotalPowerBalance : 0;
+        }
+        [DataMember]
+        public Double MoneyBalance
+        {
+            get => PowerToUtility * PowerPrice - PowerFromUtility * PowerPrice;
+        }
+
 
         public Measurement()
         {
@@ -111,11 +123,7 @@ namespace SHES.Data.Model
         public void OnPropertyChanged(string parameter)
         {
 
-            PropertyChangedEventHandler ph = PropertyChanged;
-            if (ph != null)
-            {
-                ph(this, new PropertyChangedEventArgs(parameter));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(parameter));
 
         }
         #endregion

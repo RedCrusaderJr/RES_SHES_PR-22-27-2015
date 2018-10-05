@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHES_Graphics", "SHES_Graph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalTimerTest", "UniversalTimerTest\UniversalTimerTest.csproj", "{126A5AAA-735A-44FC-9717-0BA997981CBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1CA48FE8-B1D9-489A-A805-F1923ABD29D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4FC7016C-31A6-4D0A-8861-6C78570364E3} = {1CA48FE8-B1D9-489A-A805-F1923ABD29D0}
+		{FCE3C057-6A8C-49F5-9100-B907ACFA26D4} = {1CA48FE8-B1D9-489A-A805-F1923ABD29D0}
+		{41F278FA-2C04-4D85-B6A0-EE699DCA58D9} = {1CA48FE8-B1D9-489A-A805-F1923ABD29D0}
+		{126A5AAA-735A-44FC-9717-0BA997981CBC} = {1CA48FE8-B1D9-489A-A805-F1923ABD29D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBCD1FE8-BE17-4ABF-A1A8-CD7BD16AED90}

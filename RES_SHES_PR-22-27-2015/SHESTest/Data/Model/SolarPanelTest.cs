@@ -47,7 +47,7 @@ namespace SHESTest.Data.Model
         }
 
         [Test]
-        public void SolarPanelCalculatePower_GoodExample(string id)
+        public void SolarPanelCalculatePower_GoodExample()
         {
             SolarPanel sp = new SolarPanel()
             {
