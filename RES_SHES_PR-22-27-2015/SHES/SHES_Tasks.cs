@@ -18,8 +18,19 @@ namespace SHES
         {
             Double hourOfTheDay;
 
+            int iterationStart = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
             while (true)
-            { 
+            {
+                int currentMoment = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
+                if (currentMoment - iterationStart >= 1)
+                {
+                    iterationStart = currentMoment;
+                }
+                else
+                {
+                    continue;
+                }
+
                 Dictionary<string, Battery> batteries = DBManager.S_Instance.GetAllBatteries();
                 hourOfTheDay = ConnectHelper.ConnectUniversalClock().GetTimeInHours();
 
@@ -35,6 +46,15 @@ namespace SHES
                 {
                     foreach(Battery b in batteries.Values)
                     {
+                        if(b is ElectricVehicleCharger evc)
+                        {
+                            if(evc.Mode == EMode.CONSUMING && evc.OnCharger)
+                            {
+                                evc.Consuming();
+                                continue;
+                            }
+                        }
+
                         b.Mode = EMode.NONE;
                     }
                 }
@@ -43,8 +63,7 @@ namespace SHES
                 {
                     DBManager.S_Instance.UpdateBattery(b);
                 }
-
-                Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
+                //Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
         }
 
@@ -52,18 +71,15 @@ namespace SHES
         {
             foreach (Battery b in batteries.Values)
             {
-
-                if (b is ElectricVehicleCharger)
+                if (b is ElectricVehicleCharger evc)
                 {
-                    if (!((ElectricVehicleCharger)b).OnCharger)
+                    if (!evc.OnCharger || evc.Mode == EMode.CONSUMING)
                     {
                         continue;
                     }
                 }
-
                 b.Generating();
             }
-
             return batteries;
         }
 
@@ -71,24 +87,33 @@ namespace SHES
         {
             foreach (Battery b in batteries.Values)
             {
-                if (b is ElectricVehicleCharger)
+                if (b is ElectricVehicleCharger evc)
                 {
-                    if (!((ElectricVehicleCharger)b).OnCharger)
+                    if (!evc.OnCharger)
                     {
                         continue;
                     }
                 }
-
                 b.Consuming();
             }
-
             return batteries;
         }
 
         public static void CollectingMeasurements()
         {
+            int iterationStart = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
             while (true)
             {
+                int currentMoment = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
+                if (currentMoment - iterationStart >= 1)
+                {
+                    iterationStart = currentMoment;
+                }
+                else
+                {
+                    continue;
+                }
+
                 IPowerPrice powerPriceProxy = ConnectHelper.ConnectUtility();
                 IUniversalClockService universalClockProxy = ConnectHelper.ConnectUniversalClock();
 
@@ -118,7 +143,7 @@ namespace SHES
                 currentMeasurement.HourOfTheDay = universalClockProxy.GetTimeInHours();
 
                 DBManager.S_Instance.AddMeasurement(currentMeasurement);
-                Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
+                //Thread.Sleep(Constants.MILISECONDS_IN_MINUTE);
             }
         }
 

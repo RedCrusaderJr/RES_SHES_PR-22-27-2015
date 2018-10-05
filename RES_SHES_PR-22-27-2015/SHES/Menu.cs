@@ -482,6 +482,7 @@ namespace SHES
                             else
                             {
                                 MenuFunctions.ConnectEVC(currentEVC);
+                                Console.WriteLine($"EVC ID: {currentEVC.BatteryID} updated successfully.");
                             }
                             break;
                         }
@@ -496,6 +497,7 @@ namespace SHES
                             else
                             {
                                 MenuFunctions.DisconnectEVC(currentEVC);
+                                Console.WriteLine($"EVC ID: {currentEVC.BatteryID} updated successfully.");
                             }
                             break;
                         }
@@ -505,6 +507,7 @@ namespace SHES
                             if (currentEVC.OnCharger)
                             {
                                 MenuFunctions.StartCharging(currentEVC);
+                                Console.WriteLine($"EVC ID: {currentEVC.BatteryID} updated successfully.");
                             }
                             else
                             {
@@ -518,6 +521,7 @@ namespace SHES
                             if (currentEVC.OnCharger)
                             {
                                 MenuFunctions.StopCharging(currentEVC);
+                                Console.WriteLine($"EVC ID: {currentEVC.BatteryID} updated successfully.");
                             }
                             else
                             {
@@ -531,16 +535,6 @@ namespace SHES
                             Console.WriteLine("Your answer is NOT VALID !");
                             break;
                         }
-                }
-
-
-                if(DBManager.S_Instance.UpdateElecticVehicleCharger(currentEVC))
-                {
-                    Console.WriteLine($"EVC ID: {currentEVC.BatteryID} updated successfully.");
-                }
-                else
-                {
-                    Console.WriteLine($"EVC ID: {currentEVC.BatteryID} IS NOT updated.");
                 }
             }
             else
@@ -578,6 +572,7 @@ namespace SHES
                 }
 
                 MenuFunctions.StartDriving(evcs[id], drivingHours);
+                Console.WriteLine($"EVC ID: {evcs[id].BatteryID} - {drivingHours} hour(s) drive started.");
             }
             else
             {
