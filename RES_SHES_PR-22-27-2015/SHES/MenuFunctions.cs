@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace SHES
 {
-    //TODO: Testirati
+    // TODO: Testirati
+    // Dunja: nema testiranja - sve metode su *static*
     public class MenuFunctions
     {
         public static void StartDriving(ElectricVehicleCharger evc, double drinigHours)

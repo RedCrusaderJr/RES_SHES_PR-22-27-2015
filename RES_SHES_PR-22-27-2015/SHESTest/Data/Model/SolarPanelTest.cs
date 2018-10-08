@@ -85,8 +85,5 @@ namespace SHESTest.Data.Model
             });
             _proxy2 = moq2.Object;
         }
-        // TODO
-
-        // kako da testiram konstruktor sa taskom
     }
 }

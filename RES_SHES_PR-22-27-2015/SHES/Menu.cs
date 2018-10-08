@@ -24,10 +24,8 @@ namespace SHES
                 Console.WriteLine("2. Remove some element");
                 Console.WriteLine("3. Change consumer's activity");
                 Console.WriteLine("4. Change EVC's charging");
-                Console.WriteLine("5. Show report (graphic)");
-                Console.WriteLine("6. Show financial state");
-                Console.WriteLine("7. Drive some car");
-                Console.WriteLine("8. EXIT");
+                Console.WriteLine("5. Drive some car");
+                Console.WriteLine("6. EXIT");
 
                 Console.WriteLine();
                 Console.WriteLine("Your answer: ");
@@ -64,20 +62,10 @@ namespace SHES
                         }
                     case 5:
                         {
-                            MenuFunctions.ShowReport();
-                            break;
-                        }
-                    case 6:
-                        {
-                            MenuFunctions.ShowFinancialState();
-                            break;
-                        }
-                    case 7:
-                        {
                             DriveCar();
                             break;
                         }
-                    case 8:
+                    case 6:
                         {
                             Console.WriteLine("Goodbye !");
 
@@ -92,7 +80,7 @@ namespace SHES
                         }
                 }
             }
-            while (answer1 != 8);
+            while (answer1 != 6);
         }
 
 
