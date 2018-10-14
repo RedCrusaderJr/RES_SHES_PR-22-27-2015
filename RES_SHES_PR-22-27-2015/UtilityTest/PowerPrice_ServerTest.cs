@@ -19,7 +19,6 @@ namespace UtilityTest
             PowerPrice_Server server = new Utility.PowerPrice_Server();
 
             Assert.AreEqual(server.ServiceHost.State, CommunicationState.Created);
-            //Assert.AreEqual(server.ServiceHost.Extensions.Count, 1);
         }
 
         

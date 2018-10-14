@@ -50,6 +50,7 @@ namespace UtilityTest
                 Assert.AreEqual(ppp.GetPowerPrice(hourOfTheDay), Math.Round(7.117 / 101.94, 3));
             }
         }
+
         [Test]
         public void GetPowerPriceWithDateGoodExample1()
         {
@@ -76,6 +77,90 @@ namespace UtilityTest
         }
 
         //TODO: EXAMPLE 2
+
+        [Test]
+        public void GetPowerPriceGoodExpample2()
+        {
+            PowerPrice_Provider ppp = new PowerPrice_Provider();
+            double hourOfTheDay = _clockProxy2.GetTimeInHours();
+
+            if (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0)
+            {
+                Assert.AreEqual(ppp.GetPowerPrice(hourOfTheDay), Math.Round(2.372 / 101.94, 3));
+            }
+            else
+            {
+                Assert.AreEqual(ppp.GetPowerPrice(hourOfTheDay), Math.Round(7.117 / 101.94, 3));
+            }
+        }
+
+        [Test]
+        public void GetPowerPriceWithDateGoodExample2()
+        {
+            PowerPrice_Provider ppp = new PowerPrice_Provider();
+            double hourOfTheDay = _clockProxy2.GetTimeInHours();
+            int day = _clockProxy2.GetDay();
+
+            if (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0)
+            {
+                Assert.AreEqual(ppp.GetPowerPriceWithDate(hourOfTheDay, day), new Tuple<Tuple<int, double>, double>(
+                                                        new Tuple<int, double>(
+                                                            day,
+                                                            hourOfTheDay),
+                                                        Math.Round(2.372 / 101.94, 3)));
+            }
+            else
+            {
+                Assert.AreEqual(ppp.GetPowerPriceWithDate(hourOfTheDay, day), new Tuple<Tuple<int, double>, double>(
+                                                        new Tuple<int, double>(
+                                                            day,
+                                                            hourOfTheDay),
+                                                        Math.Round(7.117 / 101.94, 3)));
+            }
+        }
+
+
         //TODO: EXAMPLE 3
+
+        [Test]
+        public void GetPowerPriceGoodExpample3()
+        {
+            PowerPrice_Provider ppp = new PowerPrice_Provider();
+            double hourOfTheDay = _clockProxy3.GetTimeInHours();
+
+            if (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0)
+            {
+                Assert.AreEqual(ppp.GetPowerPrice(hourOfTheDay), Math.Round(2.372 / 101.94, 3));
+            }
+            else
+            {
+                Assert.AreEqual(ppp.GetPowerPrice(hourOfTheDay), Math.Round(7.117 / 101.94, 3));
+            }
+        }
+
+        [Test]
+        public void GetPowerPriceWithDateGoodExample3()
+        {
+            PowerPrice_Provider ppp = new PowerPrice_Provider();
+            double hourOfTheDay = _clockProxy3.GetTimeInHours();
+            int day = _clockProxy3.GetDay();
+
+            if (hourOfTheDay >= 1.0 && hourOfTheDay < 7.0)
+            {
+                Assert.AreEqual(ppp.GetPowerPriceWithDate(hourOfTheDay, day), new Tuple<Tuple<int, double>, double>(
+                                                        new Tuple<int, double>(
+                                                            day,
+                                                            hourOfTheDay),
+                                                        Math.Round(2.372 / 101.94, 3)));
+            }
+            else
+            {
+                Assert.AreEqual(ppp.GetPowerPriceWithDate(hourOfTheDay, day), new Tuple<Tuple<int, double>, double>(
+                                                        new Tuple<int, double>(
+                                                            day,
+                                                            hourOfTheDay),
+                                                        Math.Round(7.117 / 101.94, 3)));
+            }
+        }
     }
 }

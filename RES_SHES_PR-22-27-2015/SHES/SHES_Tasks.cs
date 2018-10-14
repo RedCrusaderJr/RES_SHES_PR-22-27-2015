@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace SHES
 {
-    //TODO: testovi
+    // TODO: testovi
+    // Dunja: nema testiranja - sve metode su *static*
     class SHES_Tasks
     {
         public static void BatteryBehavior()

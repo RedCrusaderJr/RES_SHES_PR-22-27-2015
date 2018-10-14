@@ -8,10 +8,9 @@ using SHES.Data.Model;
 
 namespace SHESTest.Data.Model
 {
+    [TestFixture]
     class ElectricVehicleChargerTest
     {
-        // TODO
-
         [Test]
         [TestCase("abc")]
         [TestCase("xxx")]
@@ -22,6 +21,40 @@ namespace SHESTest.Data.Model
             Assert.AreEqual(evc.BatteryID, id);
         }
 
-        //TODO svi konstruktori
+
+        [Test]
+        [TestCase("")]
+        public void EVCConstructor_BadExample1(string id)
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                ElectricVehicleCharger evc = new ElectricVehicleCharger(id);
+            }
+            );
+        }
+
+
+        [Test]
+        [TestCase(null)]
+        public void EVCConstructor_BadExample2(string id)
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ElectricVehicleCharger evc = new ElectricVehicleCharger(id);
+            }
+            );
+        }
+
+
+        [Test]
+        [TestCase(null)]
+        public void EVCConstructor2_BadExample(ElectricVehicleCharger evc)
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                ElectricVehicleCharger new_evc = new ElectricVehicleCharger(evc);
+            }
+            );
+        }
     }
 }

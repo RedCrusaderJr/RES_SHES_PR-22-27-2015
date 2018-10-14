@@ -56,20 +56,52 @@ namespace SHESTest.Data.Model
             );
         }
 
+
+        [Test]
+        public void BatteryConsuming_GoodExample()
+        {
+            Battery battery1 = new Battery()
+            {
+                BatteryID = "a",
+                MaxPower = 10,
+                MaxCapacity = 20,
+                CurrentCapacity = 5,
+                Mode = EMode.NONE,
+            };
+
+            double startingCapacity = battery1.CurrentCapacity;
+
+            battery1.Consuming();
+
+            if (battery1.CurrentCapacity < battery1.MaxCapacity)
+            {
+                Assert.AreEqual(startingCapacity + 1, battery1.CurrentCapacity);
+                Assert.AreEqual(battery1.Mode, EMode.CONSUMING);
+            }
+            else
+            {
+                Assert.AreEqual(battery1.Mode, EMode.NONE);
+            }
+        }
+
+
+        [Test]
         public void BatteryGenerating_GoodExample()
         {
             Battery battery1 = new Battery()
             {
                 BatteryID = "a",
-                CurrentCapacity = 5,
+                MaxPower = 10,
                 MaxCapacity = 20,
+                CurrentCapacity = 5,
                 Mode = EMode.NONE,
             };
+
             double startingCapacity = battery1.CurrentCapacity;
 
             battery1.Generating();
 
-            if(battery1.CurrentCapacity > 0)
+            if (battery1.CurrentCapacity > 0)
             {
                 Assert.AreEqual(startingCapacity - 1, battery1.CurrentCapacity);
                 Assert.AreEqual(battery1.Mode, EMode.GENERATING);
@@ -79,7 +111,5 @@ namespace SHESTest.Data.Model
                 Assert.AreEqual(battery1.Mode, EMode.NONE);
             }
         }
-
-        //TODO: Consuming
     }
 }

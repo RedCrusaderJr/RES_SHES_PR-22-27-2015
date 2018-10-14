@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace SHES
 {
-    class SHES_Server
+    public class SHES_Server
     {
-        private ServiceHost _serviceHost;
-        private String _hostAddress = "net.tcp://localhost:6005/SHES";
+        public ServiceHost _serviceHost;
+        public String _hostAddress = "net.tcp://localhost:6005/SHES";
 
         public SHES_Server()
         {

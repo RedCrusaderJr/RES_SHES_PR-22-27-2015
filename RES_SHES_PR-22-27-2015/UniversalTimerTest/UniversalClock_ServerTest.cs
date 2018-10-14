@@ -20,7 +20,6 @@ namespace UniversalTimerTest
             UniversalClock_Server server = new UniversalClock_Server();
 
             Assert.AreEqual(server.ServiceHost.State, CommunicationState.Created);
-           // Assert.AreEqual(server.ServiceHost.Extensions.Count, 1);
         }
 
         [Test]
