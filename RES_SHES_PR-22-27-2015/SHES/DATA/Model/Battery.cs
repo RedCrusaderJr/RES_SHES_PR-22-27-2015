@@ -52,7 +52,7 @@ namespace SHES.Data.Model
 
         public void Consuming()
         {
-            if(CurrentCapacity * 60 + 1 <= MaxCapacity)
+            if(Math.Round((CurrentCapacity * 60 + 1) / (double)60, 2) <= MaxCapacity)
             {
                 CurrentCapacity = Math.Round((CurrentCapacity * 60 + 1) / (double)60, 2);
                 Mode = EMode.CONSUMING;
@@ -65,7 +65,7 @@ namespace SHES.Data.Model
 
         public void Generating()
         {
-            if(CurrentCapacity * 60 - 1 >= 0)
+            if(Math.Round((CurrentCapacity * 60 - 1) / (double)60, 2) >= 0)
             {
                 CurrentCapacity = Math.Round((CurrentCapacity * 60 - 1) / (double)60, 2);
                 Mode = EMode.GENERATING;

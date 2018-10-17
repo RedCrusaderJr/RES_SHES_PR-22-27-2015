@@ -19,5 +19,7 @@ namespace SHES.Data.Model
         {
             OnCharger = evc.OnCharger;
         }
+
+        //VIRTUAL CHARGING....
     }
 }

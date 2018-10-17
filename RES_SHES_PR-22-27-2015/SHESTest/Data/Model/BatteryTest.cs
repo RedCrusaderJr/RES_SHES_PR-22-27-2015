@@ -73,9 +73,9 @@ namespace SHESTest.Data.Model
 
             battery1.Consuming();
 
-            if (battery1.CurrentCapacity < battery1.MaxCapacity)
+            if (Math.Round((battery1.CurrentCapacity * 60 + 1) / (double)60, 2) <= battery1.MaxCapacity)
             {
-                Assert.AreEqual(startingCapacity + 1, battery1.CurrentCapacity);
+                Assert.AreEqual(Math.Round((startingCapacity * 60 + 1) / (double)60, 2), battery1.CurrentCapacity);
                 Assert.AreEqual(battery1.Mode, EMode.CONSUMING);
             }
             else
@@ -101,9 +101,9 @@ namespace SHESTest.Data.Model
 
             battery1.Generating();
 
-            if (battery1.CurrentCapacity > 0)
+            if (Math.Round((battery1.CurrentCapacity * 60 - 1) / (double)60, 2) >= 0)
             {
-                Assert.AreEqual(startingCapacity - 1, battery1.CurrentCapacity);
+                Assert.AreEqual(Math.Round((startingCapacity * 60 - 1) / (double)60, 2), battery1.CurrentCapacity);
                 Assert.AreEqual(battery1.Mode, EMode.GENERATING);
             }
             else
