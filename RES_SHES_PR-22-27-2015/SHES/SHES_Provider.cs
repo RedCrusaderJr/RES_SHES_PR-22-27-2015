@@ -11,7 +11,7 @@ using Common.IModel;
 namespace SHES
 {
     //TODO: testrati
-    class SHES_Provider : ISHES
+    public class SHES_Provider : ISHES
     {
         public List<Dictionary<String, Double>> GetInfoForDate(string date)
         {
@@ -85,7 +85,7 @@ namespace SHES
             return discretizedList;
         }
 
-        private String TotalHoursToString(Double totalHours)
+        public String TotalHoursToString(Double totalHours)
         {
             Int32 totalMinutes = (Int32)(totalHours * Constants.MINUTES_IN_HOUR);
             TimeSpan ts = TimeSpan.FromMinutes(totalMinutes);

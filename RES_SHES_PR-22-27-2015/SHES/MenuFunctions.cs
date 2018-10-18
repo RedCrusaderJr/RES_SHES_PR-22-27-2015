@@ -29,12 +29,15 @@ namespace SHES
             double drivingMinutes = drivingHours * Constants.MINUTES_IN_HOUR;
 
             int iterationStart = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
+            int dayStart = ConnectHelper.ConnectUniversalClock().GetDay();
             do
             {
                 int currentMoment = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
-                if (currentMoment - iterationStart >= 1)
+                int currentDay = ConnectHelper.ConnectUniversalClock().GetDay();
+                if (currentDay > dayStart || currentMoment - iterationStart >= 1)
                 {
                     iterationStart = currentMoment;
+                    dayStart = currentDay;
                 }
                 else
                 {

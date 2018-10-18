@@ -20,12 +20,15 @@ namespace SHES
             Double hourOfTheDay;
 
             int iterationStart = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
+            int dayStart = ConnectHelper.ConnectUniversalClock().GetDay();
             while (true)
             {
                 int currentMoment = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
-                if (currentMoment - iterationStart >= 1)
+                int currentDay = ConnectHelper.ConnectUniversalClock().GetDay();
+                if (currentDay > dayStart || currentMoment - iterationStart >= 1)
                 {
                     iterationStart = currentMoment;
+                    dayStart = currentDay;
                 }
                 else
                 {
@@ -103,12 +106,15 @@ namespace SHES
         public static void CollectingMeasurements()
         {
             int iterationStart = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
+            int dayStart = ConnectHelper.ConnectUniversalClock().GetDay();
             while (true)
             {
                 int currentMoment = ConnectHelper.ConnectUniversalClock().GetTimeInMinutes();
-                if (currentMoment - iterationStart >= 1)
+                int currentDay = ConnectHelper.ConnectUniversalClock().GetDay();
+                if (currentDay > dayStart || currentMoment - iterationStart >= 1)
                 {
                     iterationStart = currentMoment;
+                    dayStart = currentDay;
                 }
                 else
                 {

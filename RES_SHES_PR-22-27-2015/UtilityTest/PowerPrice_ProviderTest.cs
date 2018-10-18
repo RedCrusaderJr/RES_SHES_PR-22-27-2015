@@ -13,7 +13,6 @@ namespace UtilityTest
     [TestFixture]
     public class PowerPrice_ProviderTest
     {
-        //TODO: predlog
         private IUniversalClockService _clockProxy1;
         private IUniversalClockService _clockProxy2;
         private IUniversalClockService _clockProxy3;

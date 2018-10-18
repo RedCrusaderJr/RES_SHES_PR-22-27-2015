@@ -14,7 +14,6 @@ namespace WeatherSimulatorTest
     [TestFixture]
     public class WeatherForecast_ProviderTest
     {
-        //TODO: predlog
         private IUniversalClockService _clockProxy1;
         private IUniversalClockService _clockProxy2;
         private IUniversalClockService _clockProxy3;
